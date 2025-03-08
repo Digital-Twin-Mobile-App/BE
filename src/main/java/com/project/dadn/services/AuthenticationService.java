@@ -5,18 +5,18 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import com.project.website.dtos.requests.AuthenticationRequest;
-import com.project.website.dtos.requests.IntrospectRequest;
-import com.project.website.dtos.requests.LogoutRequest;
-import com.project.website.dtos.requests.RefreshRequest;
-import com.project.website.dtos.responses.AuthenticationResponse;
-import com.project.website.dtos.responses.IntrospectResponse;
-import com.project.website.exceptions.AppException;
-import com.project.website.exceptions.ErrorCodes;
-import com.project.website.models.InvalidatedToken;
-import com.project.website.models.User;
-import com.project.website.repositories.InvalidatedTokenRepository;
-import com.project.website.repositories.UserRepository;
+import com.project.dadn.dtos.requests.AuthenticationRequest;
+import com.project.dadn.dtos.requests.IntrospectRequest;
+import com.project.dadn.dtos.requests.LogoutRequest;
+import com.project.dadn.dtos.requests.RefreshRequest;
+import com.project.dadn.dtos.responses.AuthenticationResponse;
+import com.project.dadn.dtos.responses.IntrospectResponse;
+import com.project.dadn.exceptions.AppException;
+import com.project.dadn.exceptions.ErrorCodes;
+import com.project.dadn.models.InvalidatedToken;
+import com.project.dadn.models.User;
+import com.project.dadn.repositories.InvalidatedTokenRepository;
+import com.project.dadn.repositories.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.AccessLevel;
@@ -44,7 +44,7 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationService implements IAuthenticationService {
     UserRepository userRepository;
-    InvalidatedTokenRepository  invalidatedTokenRepository;
+    InvalidatedTokenRepository invalidatedTokenRepository;
 
     private final EntityManager entityManager;
 
