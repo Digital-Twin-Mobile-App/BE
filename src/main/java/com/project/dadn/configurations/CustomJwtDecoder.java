@@ -1,9 +1,9 @@
 package com.project.dadn.configurations;
 
 import com.nimbusds.jose.JOSEException;
-import com.project.website.dtos.requests.IntrospectRequest;
-import com.project.website.dtos.responses.IntrospectResponse;
-import com.project.website.services.AuthenticationService;
+import com.project.dadn.dtos.requests.IntrospectRequest;
+import com.project.dadn.dtos.responses.IntrospectResponse;
+import com.project.dadn.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.util.Objects;
 
 @Component
+
 public class CustomJwtDecoder implements JwtDecoder {
     @Value("${jwt.signerKey}")
     private String signerKey;

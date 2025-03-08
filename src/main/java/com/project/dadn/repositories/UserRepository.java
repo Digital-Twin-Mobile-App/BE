@@ -1,6 +1,6 @@
 package com.project.dadn.repositories;
 
-import com.project.website.models.User;
+import com.project.dadn.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

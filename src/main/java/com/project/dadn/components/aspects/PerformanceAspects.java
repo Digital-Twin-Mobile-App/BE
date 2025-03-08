@@ -1,4 +1,4 @@
-package com.project.dadn.utlls.aspects;
+package com.project.dadn.components.aspects;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class PerformanceAspects {
 
-    @Pointcut("within(com.project.website.controllers.*)")
+    @Pointcut("within(com.project.dadn.controllers.*)")
     public void controllerMethods() {}
 
     @Before("controllerMethods()")

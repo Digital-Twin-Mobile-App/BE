@@ -1,14 +1,14 @@
 package com.project.dadn.controllers;
 
 import com.nimbusds.jose.JOSEException;
-import com.project.website.dtos.requests.AuthenticationRequest;
-import com.project.website.dtos.requests.IntrospectRequest;
-import com.project.website.dtos.requests.LogoutRequest;
-import com.project.website.dtos.requests.RefreshRequest;
-import com.project.website.dtos.responses.APIResponse;
-import com.project.website.dtos.responses.AuthenticationResponse;
-import com.project.website.dtos.responses.IntrospectResponse;
-import com.project.website.services.AuthenticationService;
+import com.project.dadn.dtos.requests.AuthenticationRequest;
+import com.project.dadn.dtos.requests.IntrospectRequest;
+import com.project.dadn.dtos.requests.LogoutRequest;
+import com.project.dadn.dtos.requests.RefreshRequest;
+import com.project.dadn.dtos.responses.APIResponse;
+import com.project.dadn.dtos.responses.AuthenticationResponse;
+import com.project.dadn.dtos.responses.IntrospectResponse;
+import com.project.dadn.services.AuthenticationService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
