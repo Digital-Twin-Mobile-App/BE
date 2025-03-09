@@ -2,6 +2,7 @@ package com.project.dadn.dtos.requests;
 
 
 import com.project.dadn.utlls.MessageKeys;
+import com.project.dadn.validator.DobConstraint;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -21,5 +22,7 @@ public class UserCreationRequest {
     String password;
     String firstName;
     String lastName;
+
+    @DobConstraint(min = 2, message = MessageKeys.INVALID_DOB)
     LocalDate dob;
 }

@@ -1,28 +1,29 @@
 package com.project.dadn;
 
-import com.project.dadn.components.rabbitmq.RabbitMQProducer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import io.github.cdimascio.dotenv.Dotenv;
 
 @SpringBootApplication
 public class DadnApplication {
 
-//	public static void main(String[] args) {
-//		SpringApplication.run(DadnApplication.class, args);
-//
-//		RabbitMQProducer messageProducer = applicationContext
-//				.getBean(RabbitMQProducer.class);
-//		messageProducer.sendMessage("Hello Techmaster");
-//	}
+    public static void main(String[] args) {
+        Dotenv dotenv = Dotenv.load();
 
-	public static void main(String[] args) {
-		ApplicationContext applicationContext = SpringApplication
-				.run(DadnApplication.class);
-		RabbitMQProducer messageProducer = applicationContext
-				.getBean(RabbitMQProducer.class);
-		messageProducer.sendMessage("Hello Viet Le");
-	}
+        System.setProperty("SPRING_DATASOURCE_URL", dotenv.get("SPRING_DATASOURCE_URL"));
+        System.setProperty("SPRING_DATASOURCE_USERNAME", dotenv.get("SPRING_DATASOURCE_USERNAME"));
+        System.setProperty("SPRING_DATASOURCE_PASSWORD", dotenv.get("SPRING_DATASOURCE_PASSWORD"));
+
+        SpringApplication.run(DadnApplication.class, args);
+    }
+
+//	public static void main(String[] args) {
+//		ApplicationContext applicationContext = SpringApplication
+//				.run(DadnApplication.class);
+////		RabbitMQProducer messageProducer = applicationContext
+////				.getBean(RabbitMQProducer.class);
+////		messageProducer.sendMessage("Hello Viet Le");
+}
 
 //	private CriteriaBuilderFactory cbf;
 //	private EntityManager em;
@@ -31,4 +32,4 @@ public class DadnApplication {
 //		this.em = config.getEm();
 //	}
 
-}
+

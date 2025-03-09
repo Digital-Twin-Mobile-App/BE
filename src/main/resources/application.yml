@@ -29,7 +29,7 @@ api:
   prefix: api/v1
 
 jwt:
-  signerKey: ${SIGNER_KEY}
+  signerKey: fa0104b714daed2e4d470c47efc8974969a1a5b6310e3e216f8bfc77cf5bd46cd5d830dbed507f85213a03dcec3e2d616497f59f5aacdf67c0cd8b6320f2e2f9
   valid-duration: 3600 # seconds
   refreshable-duration: 3600000
 

@@ -38,18 +38,15 @@ public class UserService implements IUserService {
     PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreationRequest request){
+        log.info("Service: Create User");
         if (userRepository.existsByUsername(request.getUsername()))
             throw new AppException(ErrorCodes.USER_EXISTED);
-
-        Role userRole = roleRepository.findById(RoleEnum.USER.name())
-                .orElseThrow(() -> new AppException(ErrorCodes.ROLE_NOT_FOUND));
 
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        Set<Role> roles = new HashSet<>();
-        roles.add(userRole);
-        user.setRoles(roles);
+        HashSet<String> roles = new HashSet<>();
+        roles.add(RoleEnum.USER.name());
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
