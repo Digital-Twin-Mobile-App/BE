@@ -3,10 +3,10 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
+    url: jdbc:postgresql://db.vuwbestrxltqzyojbjjn.supabase.co:5432/postgres
     driver-class-name: org.postgresql.Driver
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    username: postgres
+    password: mypassword#@!12345678910
     hikari:
       maximum-pool-size: 90
       minimum-idle: 50
