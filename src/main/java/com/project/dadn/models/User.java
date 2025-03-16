@@ -1,27 +1,29 @@
 package com.project.dadn.models;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
-@Data
+@Setter
+@Getter
 @Builder
 @Table(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@NoArgsConstructor
+@AllArgsConstructor
 public class User extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    Long id;
+    @GeneratedValue
+    @Column(name = "user_id", columnDefinition = "UUID", updatable = false, nullable = false)
+    UUID id;
 
-    @Column(name = "username", nullable = false, unique = true, length = 50)
-    String username;
+    @Column(name = "email", nullable = false, unique = true, length = 50)
+    String email;
 
     @Column(name = "password", nullable = false, length = 255)
     String password;
@@ -34,6 +36,9 @@ public class User extends BaseEntity {
 
     @Column(name = "dob")
     LocalDate dob;
+
+    @Column(name = "token_version")
+    Long tokenVersion;
 
     @ManyToMany
     Set<Role> roles;

@@ -23,6 +23,12 @@ public enum ErrorCodes {
         ADMIN_REGISTERED(HttpStatus.CONFLICT, "Cannot register as admin", 409),
         ROLE_NOT_FOUND(HttpStatus.NOT_FOUND, "Role not found", 404),
         INVALID_DOB(HttpStatus.BAD_REQUEST, "Must be over 2 years old", 400),
+        RABBITMQ_ERROR(HttpStatus.BAD_REQUEST, "RabbitMQ error", 400),
+        INVALID_TOKEN_VERSION(HttpStatus.BAD_REQUEST, "Invalid token version", 400),
+        OTP_IN_USED(HttpStatus.CONFLICT, "OTP in use", 409),
+        OTP_EXPIRED(HttpStatus.CONFLICT, "OTP expired", 409),
+        OTP_INVALID(HttpStatus.CONFLICT, "OTP invalid", 409),
+        INVALID_EMAIL(HttpStatus.BAD_REQUEST, "Invalid email", 400),
     ;
 
     private HttpStatus status;

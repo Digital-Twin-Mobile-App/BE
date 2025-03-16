@@ -40,7 +40,6 @@ public class UserServiceTest {
         dob = LocalDate.of(1990, 1, 1);
 
         request = UserCreationRequest.builder()
-                .username("john")
                 .firstName("John")
                 .lastName("Doe")
                 .password("12345678")
@@ -55,7 +54,6 @@ public class UserServiceTest {
                 .build();
 
         user = User.builder()
-                .username("john")
                 .firstName("John")
                 .lastName("Doe")
                 .dob(dob)
@@ -65,7 +63,7 @@ public class UserServiceTest {
     @Test
     void createUser_validRequest_success(){
         // GIVEN
-        when(userRepository.existsByUsername(anyString())).thenReturn(false);
+//        when(userRepository.existsByUsername(anyString())).thenReturn(false);
         when(userRepository.save(any())).thenReturn(user);
 
         // WHEN
@@ -78,7 +76,7 @@ public class UserServiceTest {
     @Test
     @WithMockUser(username = "john")
     void getMyInfo_valid_success(){
-        when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
+//        when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
 
         var response = userService.getMyInfo();
 

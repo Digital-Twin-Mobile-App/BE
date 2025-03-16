@@ -38,7 +38,7 @@ public class UserService implements IUserService {
 
     public UserResponse createUser(UserCreationRequest request){
         log.info("Service: Create User");
-        if (userRepository.existsByUsername(request.getUsername()))
+        if (userRepository.existsByEmail(request.getEmail()))
             throw new AppException(ErrorCodes.USER_EXISTED);
 
         User user = userMapper.toUser(request);
@@ -52,9 +52,9 @@ public class UserService implements IUserService {
 
     public UserResponse getMyInfo(){
         var context = SecurityContextHolder.getContext();
-        String name = context.getAuthentication().getName();
+        String email = context.getAuthentication().getName();
 
-        User user = userRepository.findByUsername(name).orElseThrow(
+        User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new AppException(ErrorCodes.USER_NOT_EXISTED));
 
         return userMapper.toUserResponse(user);

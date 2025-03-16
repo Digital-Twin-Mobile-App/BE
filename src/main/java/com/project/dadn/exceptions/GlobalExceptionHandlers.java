@@ -8,6 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -39,22 +41,23 @@ public class GlobalExceptionHandlers {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<APIResponse<String>> handleValidationException(MethodArgumentNotValidException exception) {
-        String enumKey = Objects.requireNonNullElse(
-                exception.getFieldError(),
-                new org.springframework.validation.FieldError("unknown", "unknown", "INVALID_KEY")
-        ).getDefaultMessage();
+        List<String> errorMessages = new ArrayList<>();
 
-        ErrorCodes errorCode = ErrorCodes.INVALID_KEY;
-        try {
-            errorCode = ErrorCodes.valueOf(enumKey);
-        } catch (IllegalArgumentException e) {
-            log.warn("Invalid error code key provided: {}", enumKey);
-        }
+        // Extract field-level errors
+        exception.getBindingResult().getFieldErrors()
+                .forEach(error -> errorMessages.add(error.getDefaultMessage()));
+
+        //  Extract class-level errors (like @ConfirmPassword)
+        exception.getBindingResult().getGlobalErrors()
+                .forEach(error -> errorMessages.add(error.getDefaultMessage()));
+
+        String errorMessage = errorMessages.isEmpty() ? "INVALID_KEY" : String.join(", ", errorMessages);
 
         APIResponse<String> apiResponse = new APIResponse<>();
-        apiResponse.setCode(errorCode.getCode());
-        apiResponse.setMessage(errorCode.getMessage());
+        apiResponse.setCode(ErrorCodes.INVALID_KEY.getCode());
+        apiResponse.setMessage(errorMessage);
 
         return ResponseEntity.badRequest().body(apiResponse);
     }
+
 }

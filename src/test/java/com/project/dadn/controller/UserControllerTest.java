@@ -43,7 +43,6 @@ public class UserControllerTest {
         dob = LocalDate.of(1990, 1, 1);
 
         request = UserCreationRequest.builder()
-                .username("john")
                 .firstName("John")
                 .lastName("Doe")
                 .password("12345678")
