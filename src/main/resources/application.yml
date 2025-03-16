@@ -3,10 +3,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://db.vuwbestrxltqzyojbjjn.supabase.co:5432/postgres
+    url: jdbc:postgresql://localhost:5440/dadn
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: mypassword#@!12345678910
+    password: 123456
     hikari:
       maximum-pool-size: 90
       minimum-idle: 50
@@ -14,6 +14,25 @@ spring:
       idle-timeout: 600000
       pool-name: HikariConnPool
       max-lifetime: 1800000
+
+  google:
+    oauth:
+      client-id: ${GOOGLE_OAUTH_CLIENT_ID}
+      client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${EMAIL}
+    password: ${APP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_PROPERTIES_MAIL_SMTP_AUTH}
+          starttls:
+            enable: ${MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
+
+
 
   jpa:
     show-sql: true
@@ -29,7 +48,7 @@ api:
   prefix: api/v1
 
 jwt:
-  signerKey: fa0104b714daed2e4d470c47efc8974969a1a5b6310e3e216f8bfc77cf5bd46cd5d830dbed507f85213a03dcec3e2d616497f59f5aacdf67c0cd8b6320f2e2f9
+  signerKey: ${SIGNER_KEY}
   valid-duration: 3600 # seconds
   refreshable-duration: 3600000
 

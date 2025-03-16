@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres
+    container_name: dadn_postgres
+    env_file: .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_ROOT_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_LOCAL_PORT}:${POSTGRES_DOCKER_PORT}"
+
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: dadn_rabbitmq
+    restart: always
+    env_file: .env
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+    ports:
+      - "${RABBITMQ_LOCAL_PORT}:${RABBITMQ_DOCKER_PORT}"
+      - "${RABBITMQ_UI_LOCAL_PORT}:${RABBITMQ_UI_DOCKER_PORT}"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_log:/var/log/rabbitmq
+
+
+  redis:
+    image: redis:latest
+    container_name: dadn_redis_container
+    restart: always
+    ports:
+      - "${REDIS_LOCAL_PORT}:${REDIS_DOCKER_PORT}"
+    security_opt:
+      - no-new-privileges:true
+    command: redis-server --save 60 1 --loglevel warning --maxmemory 100mb --maxmemory-policy allkeys-lru
+
+
+volumes:
+  postgres_data:
+  rabbitmq_data:
+  rabbitmq_log:
+  redis_data:
