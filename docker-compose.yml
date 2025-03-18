@@ -37,7 +37,7 @@ services:
       - "${REDIS_LOCAL_PORT}:${REDIS_DOCKER_PORT}"
     security_opt:
       - no-new-privileges:true
-    command: redis-server --save 60 1 --loglevel warning --maxmemory 100mb --maxmemory-policy allkeys-lru
+    command: redis-server --save 60 1 --loglevel warning --maxmemory 200mb --maxmemory-policy allkeys-lru
 
 
 volumes:
