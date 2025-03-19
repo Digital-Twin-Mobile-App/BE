@@ -4,31 +4,31 @@ import com.nimbusds.jose.JOSEException;
 import com.project.dadn.dtos.requests.*;
 import com.project.dadn.dtos.responses.APIResponse;
 import com.project.dadn.dtos.responses.AuthenticationResponse;
-import com.project.dadn.dtos.responses.IntrospectResponse;
 import com.project.dadn.services.AuthenticationService;
 import com.project.dadn.services.EmailService;
+import com.project.dadn.services.GoogleService;
 import com.project.dadn.services.OtpService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("/oauth2")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationController {
     AuthenticationService authenticationService;
     EmailService emailService;
-    private final OtpService otpService;
+    OtpService otpService;
+    GoogleService googleService;
+
 
     @PostMapping("/login")
     APIResponse<AuthenticationResponse> authenticate(
@@ -86,7 +86,6 @@ public class AuthenticationController {
                 .message("Password changed successfully. Please log in again.")
                 .build();
     }
-
 
 
 }

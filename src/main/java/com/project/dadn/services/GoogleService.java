@@ -18,7 +18,6 @@ public class GoogleService {
 
     private final UserRepository userRepository;
     private final TokenUtil tokenUtil;
-    private final RedisUtil redisUtil;
 
     public AuthenticationResponse authenticateWithGoogle(OAuth2AuthenticationToken authentication) {
         OAuth2User oauth2User = authentication.getPrincipal();

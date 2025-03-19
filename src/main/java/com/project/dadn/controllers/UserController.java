@@ -12,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -21,7 +22,8 @@ public class UserController {
     UserService userService;
 
     @PostMapping
-    APIResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request){
+    APIResponse<UserResponse> createUser(
+            @RequestBody @Valid UserCreationRequest request){
         return APIResponse.<UserResponse>builder()
                 .result(userService.createUser(request))
                 .build();
@@ -34,15 +36,17 @@ public class UserController {
                 .build();
     }
 
-    @PutMapping("/admin/{userId}")
-    APIResponse<UserResponse> updateAdmin(@PathVariable("userId") Long userId) {
+    @PutMapping("/admin")
+    APIResponse<UserResponse> updateAdmin(
+            @RequestParam("userId") UUID userId) {
         return APIResponse.<UserResponse>builder()
                 .result(userService.updateAdmin(userId))
                 .build();
     }
 
     @GetMapping("/{userId}")
-    APIResponse<UserResponse> getUser(@PathVariable("userId") Long userId){
+    APIResponse<UserResponse> getUser(
+            @RequestParam("userId") UUID userId){
         return APIResponse.<UserResponse>builder()
                 .result(userService.getUser(userId))
                 .build();
@@ -56,14 +60,17 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    APIResponse<UserResponse> updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequest request){
+    APIResponse<UserResponse> updateUser(
+            @RequestParam UUID userId,
+            @RequestBody UserUpdateRequest request){
         return APIResponse.<UserResponse>builder()
                 .result(userService.updateUser(userId, request))
                 .build();
     }
 
     @DeleteMapping("/{userId}")
-    APIResponse<String> deleteUser(@PathVariable Long userId){
+    APIResponse<String> deleteUser(
+            @RequestParam UUID userId){
         userService.deleteUser(userId);
         return APIResponse.<String>builder()
                 .result("User has been deleted")

@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
 
@@ -42,4 +43,9 @@ public class User extends BaseEntity {
 
     @ManyToMany
     Set<Role> roles;
+
+    @OneToMany(mappedBy = "uploader", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    Collection<Image> images;
 }

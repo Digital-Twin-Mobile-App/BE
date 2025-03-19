@@ -33,7 +33,6 @@ public class AuthenticationService {
     TokenService tokenService;
     TokenUtil tokenUtil;
     RedisTemplate<String, String> redisTemplate;
-    OtpUtil otpUtil;
     PasswordEncoder passwordEncoder;
     private final SecurityUtil securityUtil;
     private final RedisUtil redisUtil;
@@ -113,5 +112,7 @@ public class AuthenticationService {
 
         redisUtil.save(token, String.valueOf(user.getTokenVersion()));
     }
+
+
 
 }

@@ -30,7 +30,7 @@ public class SecurityConfig {
     private final String[] publicEndpoints = {
             "/oauth2/*",
             "/user",
-            "/auth/token",
+            "/auth/login",
             "/auth/introspect",
             "/auth/logout",
             "/auth/*",

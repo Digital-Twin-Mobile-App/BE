@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -71,7 +72,7 @@ public class UserService {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    public UserResponse updateAdmin(Long userId) {
+    public UserResponse updateAdmin(UUID userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_EXISTED));
 
@@ -83,7 +84,7 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
-    public void deleteUser(Long userId){
+    public void deleteUser(UUID userId){
         userRepository.deleteById(userId);
     }
 
@@ -95,7 +96,7 @@ public class UserService {
     }
 
     @PostAuthorize("returnObject.username == authentication.name")
-    public UserResponse getUser(Long id){
+    public UserResponse getUser(UUID id){
         log.info("In method get user by Id");
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_EXISTED)));

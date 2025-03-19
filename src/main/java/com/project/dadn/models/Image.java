@@ -10,8 +10,8 @@ import java.util.UUID;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@Table(name = "images")
 public class Image {
     @Id
     @GeneratedValue
@@ -30,9 +30,8 @@ public class Image {
     )
     private String mediaUrl;
 
-    @ManyToOne(
-            n
-    )
-    private String mediaFileId;
+    @ManyToOne
+    @JoinColumn(name = "uploader")
+    private User uploader;
 }
 
