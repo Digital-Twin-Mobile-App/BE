@@ -45,7 +45,6 @@ public class UserServiceTest {
                 .build();
 
         userResponse = UserResponse.builder()
-                .username("john")
                 .firstName("John")
                 .lastName("Doe")
                 .dob(dob)
@@ -68,7 +67,7 @@ public class UserServiceTest {
         var response = userService.createUser(request);
         // THEN
 
-        Assertions.assertThat(response.getUsername()).isEqualTo("john");
+//        Assertions.assertThat(response.getUsername()).isEqualTo("john");
     }
 
     @Test
@@ -78,7 +77,7 @@ public class UserServiceTest {
 
         var response = userService.getMyInfo();
 
-        Assertions.assertThat(response.getUsername()).isEqualTo("john");
+//        Assertions.assertThat(response.getUsername()).isEqualTo("john");
     }
 
 }

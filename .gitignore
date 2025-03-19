@@ -32,5 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-src/main/resources/.env
 .env
+src/main/resources/digital-twin-mobile-app-21cb87f17065.json

@@ -50,7 +50,6 @@ public class UserControllerTest {
                 .build();
 
         userResponse = UserResponse.builder()
-                .username("john")
                 .firstName("John")
                 .lastName("Doe")
                 .dob(dob)

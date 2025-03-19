@@ -45,8 +45,10 @@ public class UserService {
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        HashSet<String> roles = new HashSet<>();
-        roles.add(RoleEnum.USER.name());
+        Role role = roleRepository.findById(RoleEnum.USER.name())
+                .orElseThrow(() -> new AppException(ErrorCodes.ROLE_NOT_FOUND));
+
+        user.setRoles(Collections.singleton(role));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
@@ -61,12 +63,11 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    public UserResponse updateUser(UUID userId, UserUpdateRequest request) {
-        User user = userRepository.findById(userId)
+    public UserResponse updateUser(UserUpdateRequest request) {
+        User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_EXISTED));
 
         userMapper.updateUser(user, request);
-        user.setPassword(passwordEncoder.encode(request.getPassWord()));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }

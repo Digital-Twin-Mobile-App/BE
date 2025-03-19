@@ -2,7 +2,6 @@ package com.project.dadn.mappers;
 
 import com.project.dadn.dtos.requests.UserCreationRequest;
 import com.project.dadn.dtos.requests.UserUpdateRequest;
-import com.project.dadn.dtos.requests.VerifyOTPRequest;
 import com.project.dadn.dtos.responses.UserResponse;
 import com.project.dadn.models.User;
 import org.mapstruct.Mapper;
@@ -17,6 +16,4 @@ public interface UserMapper {
 
     @Mapping(target = "roles", ignore = true)
     void updateUser(@MappingTarget User user, UserUpdateRequest request);
-
-    User otptoUser(VerifyOTPRequest request);
 }

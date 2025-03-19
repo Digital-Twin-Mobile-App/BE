@@ -44,7 +44,7 @@ public class UserController {
                 .build();
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("name")
     APIResponse<UserResponse> getUser(
             @RequestParam("userId") UUID userId){
         return APIResponse.<UserResponse>builder()
@@ -59,16 +59,15 @@ public class UserController {
                 .build();
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping
     APIResponse<UserResponse> updateUser(
-            @RequestParam UUID userId,
             @RequestBody UserUpdateRequest request){
         return APIResponse.<UserResponse>builder()
-                .result(userService.updateUser(userId, request))
+                .result(userService.updateUser(request))
                 .build();
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping
     APIResponse<String> deleteUser(
             @RequestParam UUID userId){
         userService.deleteUser(userId);
