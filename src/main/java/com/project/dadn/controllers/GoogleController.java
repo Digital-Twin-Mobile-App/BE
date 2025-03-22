@@ -34,12 +34,4 @@ public class GoogleController {
         }
         return principal;
     }
-
-    @PostMapping("/login/oauth2/code/google")
-    public APIResponse<AuthenticationResponse> login(OAuth2AuthenticationToken authenticationToken) {
-        AuthenticationResponse res = googleService.authenticateWithGoogle(authenticationToken);
-        return APIResponse.<AuthenticationResponse>builder()
-                .result(res)
-                .build();
-    }
 }

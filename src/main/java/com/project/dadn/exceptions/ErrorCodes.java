@@ -29,6 +29,9 @@ public enum ErrorCodes {
         OTP_EXPIRED(HttpStatus.CONFLICT, "OTP expired", 409),
         OTP_INVALID(HttpStatus.CONFLICT, "OTP invalid", 409),
         INVALID_EMAIL(HttpStatus.BAD_REQUEST, "Invalid email", 400),
+        FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "File not found", 404),
+        FILE_UPLOAD_FAILED(HttpStatus.CONFLICT, "File upload failed", 409),
+        USER_CREATION_FAILED(HttpStatus.CONFLICT, "User creation failed", 409),
     ;
 
     private HttpStatus status;

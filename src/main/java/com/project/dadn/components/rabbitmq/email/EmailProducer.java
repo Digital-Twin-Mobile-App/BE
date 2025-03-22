@@ -1,4 +1,4 @@
-package com.project.dadn.components.rabbitmq;
+package com.project.dadn.components.rabbitmq.email;
 
 
 import com.project.dadn.configurations.RabbitMQConfig;

@@ -1,6 +1,7 @@
 package com.project.dadn.configurations;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -11,21 +12,40 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 public class RabbitMQConfig {
 
     public static final String EMAIL_QUEUE = "email_queue";
+    public static final String IMAGE_UPLOAD_QUEUE = "image_upload_queue";
 
+    // Tạo hàng đợi cho email
     @Bean
     public Queue emailQueue() {
         return new Queue(EMAIL_QUEUE, true);
     }
 
+    // Tạo hàng đợi cho upload ảnh
+    @Bean
+    public Queue imageUploadQueue() {
+        return new Queue(IMAGE_UPLOAD_QUEUE, true);
+    }
+
+    // Bộ chuyển đổi JSON
     @Bean
     public Jackson2JsonMessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
+    // Cấu hình RabbitTemplate để sử dụng Jackson
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
+    }
+
+    // Cấu hình Listener Container Factory để sử dụng Jackson
+    @Bean
+    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setMessageConverter(jsonMessageConverter());
+        return factory;
     }
 }

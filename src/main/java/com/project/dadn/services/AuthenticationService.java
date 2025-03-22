@@ -34,8 +34,8 @@ public class AuthenticationService {
     TokenUtil tokenUtil;
     RedisTemplate<String, String> redisTemplate;
     PasswordEncoder passwordEncoder;
-    private final SecurityUtil securityUtil;
-    private final RedisUtil redisUtil;
+    SecurityUtil securityUtil;
+    RedisUtil redisUtil;
 
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){

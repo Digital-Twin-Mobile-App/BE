@@ -28,6 +28,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     private final String[] publicEndpoints = {
+            "/uploadImage",
             "/oauth2/*",
             "/user",
             "/auth/login",

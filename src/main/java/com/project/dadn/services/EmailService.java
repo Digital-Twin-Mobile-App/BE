@@ -1,9 +1,8 @@
 package com.project.dadn.services;
 
-import com.project.dadn.components.rabbitmq.EmailProducer;
+import com.project.dadn.components.rabbitmq.email.EmailProducer;
 import com.project.dadn.dtos.requests.EmailDetailRequest;
 import com.project.dadn.dtos.requests.VerifyEmailRequest;
-import com.project.dadn.dtos.requests.VerifyOTPRequest;
 import com.project.dadn.exceptions.AppException;
 import com.project.dadn.exceptions.ErrorCodes;
 import com.project.dadn.utlls.OtpUtil;
