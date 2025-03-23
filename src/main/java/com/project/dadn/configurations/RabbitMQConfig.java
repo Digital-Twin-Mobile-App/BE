@@ -1,51 +1,44 @@
 package com.project.dadn.configurations;
 
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String EMAIL_QUEUE = "email_queue";
-    public static final String IMAGE_UPLOAD_QUEUE = "image_upload_queue";
+    public static final String QUEUE = "rabbit_mq_queue";
+    public static final String EXCHANGE = "rabbit_mq_exchange";
+    public static final String ROUTING_KEY = "rabbit_mq_r_key";
 
-    // Tạo hàng đợi cho email
     @Bean
-    public Queue emailQueue() {
-        return new Queue(EMAIL_QUEUE, true);
+    public Queue queue() {
+        return new Queue(QUEUE);
     }
 
-    // Tạo hàng đợi cho upload ảnh
     @Bean
-    public Queue imageUploadQueue() {
-        return new Queue(IMAGE_UPLOAD_QUEUE, true);
+    public DirectExchange directExchange() {
+        return new DirectExchange(EXCHANGE);
     }
 
-    // Bộ chuyển đổi JSON
     @Bean
-    public Jackson2JsonMessageConverter jsonMessageConverter() {
+    public Binding binding(Queue queue, DirectExchange directExchange) {
+        return BindingBuilder.bind(queue).to(directExchange).with(ROUTING_KEY);
+    }
+
+    @Bean
+    public MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
-    // Cấu hình RabbitTemplate để sử dụng Jackson
     @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+    public AmqpTemplate getTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(jsonMessageConverter());
+        rabbitTemplate.setMessageConverter(messageConverter());
         return rabbitTemplate;
-    }
-
-    // Cấu hình Listener Container Factory để sử dụng Jackson
-    @Bean
-    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory);
-        factory.setMessageConverter(jsonMessageConverter());
-        return factory;
     }
 }

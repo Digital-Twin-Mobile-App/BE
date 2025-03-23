@@ -25,55 +25,57 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class UserService {
+public class UserService implements IUserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreationRequest request){
-        log.info("Service: Create User");
-        if (userRepository.existsByEmail(request.getEmail()))
+        if (userRepository.existsByUsername(request.getUsername()))
             throw new AppException(ErrorCodes.USER_EXISTED);
+
+        Role userRole = roleRepository.findById(RoleEnum.USER.name())
+                .orElseThrow(() -> new AppException(ErrorCodes.ROLE_NOT_FOUND));
 
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        Role role = roleRepository.findById(RoleEnum.USER.name())
-                .orElseThrow(() -> new AppException(ErrorCodes.ROLE_NOT_FOUND));
-
-        user.setRoles(Collections.singleton(role));
+        Set<Role> roles = new HashSet<>();
+        roles.add(userRole);
+        user.setRoles(roles);
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
     public UserResponse getMyInfo(){
         var context = SecurityContextHolder.getContext();
-        String email = context.getAuthentication().getName();
+        String name = context.getAuthentication().getName();
 
-        User user = userRepository.findByEmail(email).orElseThrow(
+        User user = userRepository.findByUsername(name).orElseThrow(
                 () -> new AppException(ErrorCodes.USER_NOT_EXISTED));
 
         return userMapper.toUserResponse(user);
     }
 
-    public UserResponse updateUser(UserUpdateRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
+    public UserResponse updateUser(Long userId, UserUpdateRequest request) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_EXISTED));
 
         userMapper.updateUser(user, request);
+        user.setPassword(passwordEncoder.encode(request.getPassWord()));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    public UserResponse updateAdmin(UUID userId) {
+    public UserResponse updateAdmin(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_EXISTED));
 
@@ -85,7 +87,7 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
-    public void deleteUser(UUID userId){
+    public void deleteUser(Long userId){
         userRepository.deleteById(userId);
     }
 
@@ -97,7 +99,7 @@ public class UserService {
     }
 
     @PostAuthorize("returnObject.username == authentication.name")
-    public UserResponse getUser(UUID id){
+    public UserResponse getUser(Long id){
         log.info("In method get user by Id");
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_EXISTED)));
