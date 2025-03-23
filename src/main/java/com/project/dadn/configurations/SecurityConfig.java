@@ -29,7 +29,7 @@ public class SecurityConfig {
 
     private final String[] publicEndpoints = {
             "/uploadImage",
-            "/oauth2/*",
+            "/login/",
             "/user",
             "/auth/login",
             "/auth/introspect",

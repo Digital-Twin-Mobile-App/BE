@@ -39,7 +39,6 @@ public class GoogleService {
                     .password("google-oauth")
                     .firstName(firstName)
                     .lastName(lastName)
-                    .dob(LocalDate.now()) // Giả định ngày sinh là ngày hiện tại
                     .build();
 
             // Gọi hàm tạo người dùng

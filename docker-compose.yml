@@ -1,5 +1,35 @@
-version: '3.9'
 services:
+
+  backend:
+    container_name: dadn_backend
+    env_file: .env
+    image: vietlecd/dadn:latest
+    environment:
+      - GOOGLE_CREDENTIALS_PATH=${GOOGLE_CREDENTIALS_PATH}
+      - GOOGLE_DRIVE_FOLDER_ID=${GOOGLE_DRIVE_FOLDER_ID}
+      - GOOGLE_ID=${GOOGLE_ID}
+      - GOOGLE_PASSWORD=${GOOGLE_PASSWORD}
+      - GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI}
+      - POSGRES_URL=jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=${POSTGRES_DOCKER_PORT}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - REDIS_HOST=redis
+      - REDIS_PORT=${REDIS_DOCKER_PORT}
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=${RABBITMQ_DOCKER_PORT}
+      - MAIL_HOST=${MAIL_HOST}
+      - MAIL_PORT=${MAIL_PORT}
+      - SIGNER_KEY=${SIGNER_KEY}
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_DOCKER_PORT}"
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
+
   postgres:
     image: postgres
     container_name: dadn_postgres
