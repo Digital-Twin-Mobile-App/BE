@@ -1,0 +1,891 @@
+INFO 2025-03-23 03:19:16,812 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 03:19:16,813 redisinsight_startup Starting webserver...
+INFO 2025-03-23 03:19:16,813 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 03:19:18,086 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 03:19:18,087 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 03:19:18,088 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 03:19:18,101 redisinsight_startup   Applying contenttypes.0001_initial...
+INFO 2025-03-23 03:19:18,114 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,115 redisinsight_startup   Applying auth.0001_initial...
+INFO 2025-03-23 03:19:18,142 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,143 redisinsight_startup   Applying admin.0001_initial...
+INFO 2025-03-23 03:19:18,162 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,163 redisinsight_startup   Applying admin.0002_logentry_remove_auto_add...
+INFO 2025-03-23 03:19:18,183 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,184 redisinsight_startup   Applying admin.0003_logentry_add_action_flag_choices...
+INFO 2025-03-23 03:19:18,206 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,207 redisinsight_startup   Applying contenttypes.0002_remove_content_type_name...
+INFO 2025-03-23 03:19:18,236 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,236 redisinsight_startup   Applying auth.0002_alter_permission_name_max_length...
+INFO 2025-03-23 03:19:18,256 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,256 redisinsight_startup   Applying auth.0003_alter_user_email_max_length...
+INFO 2025-03-23 03:19:18,279 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,279 redisinsight_startup   Applying auth.0004_alter_user_username_opts...
+INFO 2025-03-23 03:19:18,302 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,302 redisinsight_startup   Applying auth.0005_alter_user_last_login_null...
+INFO 2025-03-23 03:19:18,323 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,323 redisinsight_startup   Applying auth.0006_require_contenttypes_0002...
+INFO 2025-03-23 03:19:18,335 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,335 redisinsight_startup   Applying auth.0007_alter_validators_add_error_messages...
+INFO 2025-03-23 03:19:18,361 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,361 redisinsight_startup   Applying auth.0008_alter_user_username_max_length...
+INFO 2025-03-23 03:19:18,384 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,385 redisinsight_startup   Applying auth.0009_alter_user_last_name_max_length...
+INFO 2025-03-23 03:19:18,409 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,410 redisinsight_startup   Applying auth.0010_alter_group_name_max_length...
+INFO 2025-03-23 03:19:18,433 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,433 redisinsight_startup   Applying auth.0011_update_proxy_permissions...
+INFO 2025-03-23 03:19:18,452 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,453 redisinsight_startup   Applying authtoken.0001_initial...
+INFO 2025-03-23 03:19:18,477 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,478 redisinsight_startup   Applying authtoken.0002_auto_20160226_1747...
+INFO 2025-03-23 03:19:18,540 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,540 redisinsight_startup   Applying core.0001_initial...
+INFO 2025-03-23 03:19:18,657 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,658 redisinsight_startup   Applying recommendation.0001_initial...
+INFO 2025-03-23 03:19:18,698 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,699 redisinsight_startup   Applying recommendation.0002_recommendation__params...
+INFO 2025-03-23 03:19:18,729 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,729 redisinsight_startup   Applying recommendation.0003_auto_20180710_0953...
+INFO 2025-03-23 03:19:18,747 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,748 redisinsight_startup   Applying core.0002_auto_20180529_1220...
+INFO 2025-03-23 03:19:18,779 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,780 redisinsight_startup   Applying core.0003_instances_is_deleted...
+INFO 2025-03-23 03:19:18,803 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,804 redisinsight_startup   Applying core.0004_usedmemorybyinstance...
+INFO 2025-03-23 03:19:18,838 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,838 redisinsight_startup   Applying core.0005_auto_20180605_0658...
+INFO 2025-03-23 03:19:18,882 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,883 redisinsight_startup   Applying core.0006_auto_20180605_1058...
+INFO 2025-03-23 03:19:18,907 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,907 redisinsight_startup   Applying core.0007_instanceprofile_file_name...
+INFO 2025-03-23 03:19:18,948 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:18,949 redisinsight_startup   Applying core.0008_auto_20180705_1713...
+INFO 2025-03-23 03:19:19,036 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,037 redisinsight_startup   Applying core.0009_auto_20180709_0805...
+INFO 2025-03-23 03:19:19,107 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,108 redisinsight_startup   Applying core.0010_auto_20180710_0456...
+INFO 2025-03-23 03:19:19,150 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,151 redisinsight_startup   Applying core.0011_auto_20180710_1002...
+INFO 2025-03-23 03:19:19,166 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,166 redisinsight_startup   Applying core.0012_auto_20180710_1144...
+INFO 2025-03-23 03:19:19,181 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,181 redisinsight_startup   Applying core.0013_auto_20180731_1205...
+INFO 2025-03-23 03:19:19,233 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,234 redisinsight_startup   Applying core.0014_auto_20180731_2005...
+INFO 2025-03-23 03:19:19,254 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,255 redisinsight_startup   Applying core.0015_auto_20180816_1220...
+INFO 2025-03-23 03:19:19,285 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,285 redisinsight_startup   Applying core.0016_rdbtoolsversion...
+INFO 2025-03-23 03:19:19,305 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,306 redisinsight_startup   Applying core.0017_reshardclusterjob...
+INFO 2025-03-23 03:19:19,342 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,345 redisinsight_startup   Applying core.0018_remove_reshardclusterjob_user...
+INFO 2025-03-23 03:19:19,432 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,435 redisinsight_startup   Applying core.0019_instanceattributes...
+INFO 2025-03-23 03:19:19,463 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,463 redisinsight_startup   Applying core.0019_auto_20180920_1448...
+INFO 2025-03-23 03:19:19,504 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,504 redisinsight_startup   Applying core.0020_merge_20180922_0703...
+INFO 2025-03-23 03:19:19,516 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,516 redisinsight_startup   Applying core.0021_auto_20180928_1010...
+INFO 2025-03-23 03:19:19,547 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,547 redisinsight_startup   Applying core.0022_backgroundtask_seen_result...
+INFO 2025-03-23 03:19:19,570 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,570 redisinsight_startup   Applying core.0023_auto_20181128_1139...
+INFO 2025-03-23 03:19:19,599 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,600 redisinsight_startup   Applying core.0024_auto_20181204_1330...
+INFO 2025-03-23 03:19:19,651 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,651 redisinsight_startup   Applying core.0025_remove_instances_db_number...
+INFO 2025-03-23 03:19:19,670 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,670 redisinsight_startup   Applying core.0026_licensekey_tag...
+INFO 2025-03-23 03:19:19,688 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,688 redisinsight_startup   Applying core.0027_auto_20190126_1458...
+INFO 2025-03-23 03:19:19,734 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,735 redisinsight_startup   Applying core.0028_auto_20190211_0734...
+INFO 2025-03-23 03:19:19,865 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,866 redisinsight_startup   Applying browser.0001_initial...
+INFO 2025-03-23 03:19:19,935 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,936 redisinsight_startup   Applying browser.0002_auto_20180516_1531...
+INFO 2025-03-23 03:19:19,957 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:19,958 redisinsight_startup   Applying browser.0003_auto_20180821_0959...
+INFO 2025-03-23 03:19:20,041 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,042 redisinsight_startup   Applying browser.0004_remove_bulkoperationjob_user...
+INFO 2025-03-23 03:19:20,083 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,083 redisinsight_startup   Applying browser.0005_restorejobs...
+INFO 2025-03-23 03:19:20,132 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,133 redisinsight_startup   Applying browser.0006_auto_20190409_0701...
+INFO 2025-03-23 03:19:20,225 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,226 redisinsight_startup   Applying cluster_management.0001_initial...
+INFO 2025-03-23 03:19:20,248 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,249 redisinsight_startup   Applying cluster_management.0002_fixclusterjob...
+INFO 2025-03-23 03:19:20,273 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,273 redisinsight_startup   Applying core.0029_instances_uuid...
+INFO 2025-03-23 03:19:20,326 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,326 redisinsight_startup   Applying core.0030_userpermisson...
+INFO 2025-03-23 03:19:20,351 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,351 redisinsight_startup   Applying core.0031_auto_20190625_0842...
+INFO 2025-03-23 03:19:20,380 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,380 redisinsight_startup   Applying core.0032_delete_licensekey...
+INFO 2025-03-23 03:19:20,395 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,396 redisinsight_startup   Applying core.0033_instances_db_num_supported...
+INFO 2025-03-23 03:19:20,419 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,419 redisinsight_startup   Applying core.0034_auto_20190925_2119...
+INFO 2025-03-23 03:19:20,440 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,441 redisinsight_startup   Applying core.0035_userpermisson_eula_accepted...
+INFO 2025-03-23 03:19:20,471 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,474 redisinsight_startup   Applying core.0036_auto_20191007_1129...
+INFO 2025-03-23 03:19:20,526 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,526 redisinsight_startup   Applying core.0037_auto_20191009_1444...
+INFO 2025-03-23 03:19:20,568 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,569 redisinsight_startup   Applying core.0038_auto_20191009_1446...
+INFO 2025-03-23 03:19:20,587 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,588 redisinsight_startup   Applying core.0039_installationid...
+INFO 2025-03-23 03:19:20,605 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,605 redisinsight_startup   Applying core.0040_auto_20200107_0421...
+INFO 2025-03-23 03:19:20,647 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,647 redisinsight_startup   Applying core.0041_rediscloudinstances...
+INFO 2025-03-23 03:19:20,671 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,671 redisinsight_startup   Applying core.0042_auto_20200118_1705...
+INFO 2025-03-23 03:19:20,711 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,711 redisinsight_startup   Applying core.0043_auto_20200212_1414...
+INFO 2025-03-23 03:19:20,745 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,746 redisinsight_startup   Applying core.0044_auto_20200415_0907...
+INFO 2025-03-23 03:19:20,790 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,791 redisinsight_startup   Applying core.0045_updatehistory...
+INFO 2025-03-23 03:19:20,820 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,821 redisinsight_startup   Applying core.0046_auto_20200610_1122...
+INFO 2025-03-23 03:19:20,929 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,929 redisinsight_startup   Applying core.0047_auto_20200610_1330...
+INFO 2025-03-23 03:19:20,952 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,953 redisinsight_startup   Applying core.0048_remove_userpermisson_eula_accepted...
+INFO 2025-03-23 03:19:20,994 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:20,994 redisinsight_startup   Applying core.0049_backgroundtask_error_message...
+INFO 2025-03-23 03:19:21,030 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:21,031 redisinsight_startup   Applying core.0050_sentinelinfo_service_username...
+INFO 2025-03-23 03:19:21,067 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:21,068 redisinsight_startup   Applying memory_analysis.0001_initial...
+INFO 2025-03-23 03:19:21,193 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:21,194 redisinsight_startup   Applying memory_analysis.0002_remove_analyzeinstancejob_user...
+INFO 2025-03-23 03:19:21,273 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:21,273 redisinsight_startup   Applying memory_analysis.0003_instancesnapshots_rdb_file_paths...
+INFO 2025-03-23 03:19:21,328 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:21,328 redisinsight_startup   Applying memory_analysis.0003_analyzeinstancejob_started_by...
+INFO 2025-03-23 03:19:21,536 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:21,537 redisinsight_startup   Applying memory_analysis.0004_merge_20200602_1229...
+INFO 2025-03-23 03:19:21,563 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:21,564 redisinsight_startup   Applying profiling.0001_initial...
+INFO 2025-03-23 03:19:21,649 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:21,649 redisinsight_startup   Applying profiling.0002_auto_20180803_1447...
+INFO 2025-03-23 03:19:22,026 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:22,026 redisinsight_startup   Applying profiling.0003_auto_20180815_1157...
+INFO 2025-03-23 03:19:22,155 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:22,156 redisinsight_startup   Applying profiling.0004_instanceprofile_parent...
+INFO 2025-03-23 03:19:22,233 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:22,234 redisinsight_startup   Applying profiling.0005_auto_20180815_1231...
+INFO 2025-03-23 03:19:22,319 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:22,320 redisinsight_startup   Applying profiling.0006_auto_20180821_0954...
+INFO 2025-03-23 03:19:22,427 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:22,429 redisinsight_startup   Applying profiling.0007_instanceprofile_username...
+INFO 2025-03-23 03:19:22,521 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:22,522 redisinsight_startup   Applying sessions.0001_initial...
+INFO 2025-03-23 03:19:22,555 redisinsight_startup  OK
+
+INFO 2025-03-23 03:19:23,697 redisinsight Application version: 1.6.3
+INFO 2025-03-23 03:19:23,715 redisinsight First start detected
+INFO 2025-03-23 03:19:23,953 redisinsight Created desktop-mode user.
+INFO 2025-03-23 03:19:23,977 redisinsight Created installation ID: '18bd862d67b44c7899308744e200c307'
+INFO 2025-03-23 03:19:24,004 redisinsight Application first start event sent.
+INFO 2025-03-23 03:19:24,024 redisinsight Created application update history entry for version 1.6.3
+INFO 2025-03-23 03:19:24,034 redisinsight Application startup event sent.
+INFO 2025-03-23 03:19:24,040 redisinsight_startup Starting waitress
+INFO 2025-03-23 04:10:46,876 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 04:10:46,918 redisinsight_startup waitress server exited
+INFO 2025-03-23 04:10:59,775 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 04:10:59,776 redisinsight_startup Starting webserver...
+INFO 2025-03-23 04:10:59,777 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 04:11:02,612 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 04:11:02,613 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 04:11:02,653 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 04:11:02,655 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 04:11:03,025 redisinsight Application version: 1.6.3
+INFO 2025-03-23 04:11:03,037 redisinsight Application startup event sent.
+INFO 2025-03-23 04:11:03,040 redisinsight_startup Starting waitress
+INFO 2025-03-23 04:40:03,944 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 04:40:03,966 redisinsight_startup waitress server exited
+INFO 2025-03-23 04:41:21,633 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 04:41:21,635 redisinsight_startup Starting webserver...
+INFO 2025-03-23 04:41:21,635 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 04:41:23,677 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 04:41:23,679 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 04:41:23,720 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 04:41:23,720 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 04:41:25,003 redisinsight Application version: 1.6.3
+INFO 2025-03-23 04:41:25,022 redisinsight Application startup event sent.
+INFO 2025-03-23 04:41:25,026 redisinsight_startup Starting waitress
+INFO 2025-03-23 04:43:12,834 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 04:43:12,836 redisinsight_startup waitress server exited
+INFO 2025-03-23 04:43:22,802 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 04:43:22,803 redisinsight_startup Starting webserver...
+INFO 2025-03-23 04:43:22,804 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 04:43:25,043 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 04:43:25,046 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 04:43:25,207 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 04:43:25,208 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 04:43:26,211 redisinsight Application version: 1.6.3
+INFO 2025-03-23 04:43:26,243 redisinsight Application startup event sent.
+INFO 2025-03-23 04:43:26,249 redisinsight_startup Starting waitress
+INFO 2025-03-23 04:47:48,541 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 04:47:48,543 redisinsight_startup waitress server exited
+INFO 2025-03-23 04:48:02,815 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 04:48:02,815 redisinsight_startup Starting webserver...
+INFO 2025-03-23 04:48:02,815 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 04:48:03,897 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 04:48:03,901 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 04:48:03,942 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 04:48:03,944 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 04:48:04,665 redisinsight Application version: 1.6.3
+INFO 2025-03-23 04:48:04,702 redisinsight Application startup event sent.
+INFO 2025-03-23 04:48:04,707 redisinsight_startup Starting waitress
+INFO 2025-03-23 04:57:08,157 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 04:57:08,158 redisinsight_startup waitress server exited
+INFO 2025-03-23 04:57:15,047 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 04:57:15,048 redisinsight_startup Starting webserver...
+INFO 2025-03-23 04:57:15,049 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 04:57:16,631 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 04:57:16,633 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 04:57:16,707 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 04:57:16,708 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 04:57:17,186 redisinsight Application version: 1.6.3
+INFO 2025-03-23 04:57:17,204 redisinsight Application startup event sent.
+INFO 2025-03-23 04:57:17,209 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:14:15,510 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:14:15,513 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:14:25,482 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:14:25,482 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:14:25,483 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:14:26,919 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:14:26,923 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:14:27,002 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:14:27,003 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:14:27,361 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:14:27,383 redisinsight Application startup event sent.
+INFO 2025-03-23 05:14:27,387 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:16:10,674 redisinsight Initialized index.html cache
+INFO 2025-03-23 05:16:23,570 redisinsight Initialized index.html cache
+ERROR 2025-03-23 05:16:29,340 django.request Internal Server Error: /api/latest-version/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/connection.py", line 57, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/local/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 343, in _make_request
+    self._validate_conn(conn)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 839, in _validate_conn
+    conn.connect()
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connection.py", line 301, in connect
+    conn = self._new_conn()
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x7f7ae0114080>: Failed to establish a new connection: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.redisinsight.redislabs.com', port=443): Max retries exceeded with url: /api/updates/check-updates?platform=DOCKER&version=1.6.3 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f7ae0114080>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "./redisinsight/utils/__init__.py", line 111, in _wrapped_view
+  File "/usr/local/lib/python3.6/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/rest_framework/views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.6/site-packages/rest_framework/views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.6/site-packages/rest_framework/views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/rest_framework/decorators.py", line 54, in handler
+    return func(*args, **kwargs)
+  File "./redisinsight/core/views/version.py", line 38, in get_latest_version
+  File "./redisinsight/core/views/version.py", line 15, in _get_latest_version
+  File "/usr/local/lib/python3.6/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 524, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 637, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.redisinsight.redislabs.com', port=443): Max retries exceeded with url: /api/updates/check-updates?platform=DOCKER&version=1.6.3 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f7ae0114080>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+INFO 2025-03-23 05:17:27,565 redisinsight Connection for redis:6379 not found in cache. Creating new connection.
+WARNING 2025-03-23 05:17:33,126 redisinsight Error reporting database add success
+ERROR 2025-03-23 05:17:38,585 django.request Internal Server Error: /api/latest-version/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connection.py", line 159, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/connection.py", line 57, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/local/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 343, in _make_request
+    self._validate_conn(conn)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 839, in _validate_conn
+    conn.connect()
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connection.py", line 301, in connect
+    conn = self._new_conn()
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connection.py", line 168, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x7f7ae014e400>: Failed to establish a new connection: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.redisinsight.redislabs.com', port=443): Max retries exceeded with url: /api/updates/check-updates?platform=DOCKER&version=1.6.3 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f7ae014e400>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "./redisinsight/utils/__init__.py", line 111, in _wrapped_view
+  File "/usr/local/lib/python3.6/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/rest_framework/views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.6/site-packages/rest_framework/views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.6/site-packages/rest_framework/views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/rest_framework/decorators.py", line 54, in handler
+    return func(*args, **kwargs)
+  File "./redisinsight/core/views/version.py", line 38, in get_latest_version
+  File "./redisinsight/core/views/version.py", line 15, in _get_latest_version
+  File "/usr/local/lib/python3.6/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 524, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 637, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.redisinsight.redislabs.com', port=443): Max retries exceeded with url: /api/updates/check-updates?platform=DOCKER&version=1.6.3 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f7ae014e400>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+ERROR 2025-03-23 05:17:52,729 redisinsight Unknown command error from redis instance:
+Traceback (most recent call last):
+  File "./redisinsight/utils/__init__.py", line 198, in _wrapped_view
+  File "./redisinsight/core/views/decorators.py", line 21, in wrapped_view
+  File "./redisinsight/redisgraph/decorators.py", line 34, in _wrapped_view
+  File "./redisinsight/redisgraph/views/__init__.py", line 26, in module_info
+  File "./redisinsight/redisgraph/services/__init__.py", line 336, in check_redisgraph_module_loaded_in_instance
+  File "./redisinsight/redisgraph/services/__init__.py", line 305, in check_redisgraph_module_loaded
+  File "/usr/local/lib/python3.6/site-packages/redis/client.py", line 878, in execute_command
+    return self.parse_response(conn, command_name, **options)
+  File "/usr/local/lib/python3.6/site-packages/redis/client.py", line 892, in parse_response
+    response = connection.read_response()
+  File "/usr/local/lib/python3.6/site-packages/redis/connection.py", line 752, in read_response
+    raise response
+redis.exceptions.ResponseError: unknown command 'GRAPH.DELETE', with args beginning with: '__$$__NON_EXISTENT_KEY__$$__' 
+ERROR 2025-03-23 05:17:52,732 django.request Unknown Status Code: /api/instance/0cd7e800-f48b-42a7-a5b1-4780c329b165/redisgraph/check-module-loaded/
+INFO 2025-03-23 05:19:11,762 redisinsight Connection for redis:6379 not found in cache. Creating new connection.
+INFO 2025-03-23 05:21:14,188 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:21:14,190 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:21:21,954 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:21:21,955 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:21:21,955 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:21:23,311 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:21:23,313 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:21:23,387 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:21:23,388 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:21:23,823 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:21:23,844 redisinsight Application startup event sent.
+INFO 2025-03-23 05:21:23,850 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:24:14,187 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:24:14,189 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:25:04,983 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:25:04,985 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:25:04,985 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:25:06,381 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:25:06,382 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:25:06,494 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:25:06,496 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:25:07,273 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:25:07,299 redisinsight Application startup event sent.
+INFO 2025-03-23 05:25:07,303 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:26:53,857 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:26:53,858 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:27:16,576 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:27:16,577 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:27:16,578 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:27:18,216 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:27:18,222 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:27:18,315 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:27:18,317 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:27:18,848 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:27:18,869 redisinsight Application startup event sent.
+INFO 2025-03-23 05:27:18,873 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:28:22,108 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:28:22,110 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:28:34,469 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:28:34,470 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:28:34,471 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:28:35,751 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:28:35,753 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:28:35,818 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:28:35,819 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:28:36,300 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:28:36,329 redisinsight Application startup event sent.
+INFO 2025-03-23 05:28:36,336 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:32:42,885 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:32:42,887 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:33:21,704 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:33:21,705 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:33:21,706 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:33:23,326 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:33:23,328 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:33:23,419 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:33:23,420 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:33:23,864 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:33:23,888 redisinsight Application startup event sent.
+INFO 2025-03-23 05:33:23,892 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:33:56,799 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:33:56,801 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:34:03,467 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:34:03,468 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:34:03,470 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:34:05,198 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:34:05,232 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:34:06,234 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:34:06,234 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:34:08,091 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:34:08,118 redisinsight Application startup event sent.
+INFO 2025-03-23 05:34:08,124 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:35:01,146 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:35:01,147 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:35:14,584 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:35:14,585 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:35:14,585 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:35:16,169 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:35:16,173 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:35:16,234 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:35:16,235 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:35:16,552 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:35:16,572 redisinsight Application startup event sent.
+INFO 2025-03-23 05:35:16,575 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:42:37,567 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:42:37,570 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:42:48,396 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:42:48,397 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:42:48,397 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:42:49,812 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:42:49,813 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:42:49,879 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:42:49,880 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:42:50,259 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:42:50,283 redisinsight Application startup event sent.
+INFO 2025-03-23 05:42:50,287 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:48:57,839 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:48:57,841 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:49:04,581 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:49:04,582 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:49:04,582 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:49:05,975 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:49:05,978 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:49:06,050 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:49:06,050 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:49:06,485 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:49:06,505 redisinsight Application startup event sent.
+INFO 2025-03-23 05:49:06,508 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:50:36,653 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:50:36,655 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:51:22,634 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:51:22,635 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:51:22,635 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:51:24,032 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:51:24,033 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:51:24,112 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:51:24,114 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:51:24,482 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:51:24,505 redisinsight Application startup event sent.
+INFO 2025-03-23 05:51:24,509 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:52:47,312 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:52:47,314 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:52:59,869 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:52:59,874 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:52:59,875 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:53:01,627 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:53:01,628 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:53:01,695 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:53:01,699 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:53:02,361 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:53:02,398 redisinsight Application startup event sent.
+INFO 2025-03-23 05:53:02,407 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:53:32,629 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:53:32,631 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:55:40,857 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:55:40,857 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:55:40,858 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:55:42,233 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:55:42,235 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:55:42,314 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:55:42,316 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:55:42,802 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:55:42,825 redisinsight Application startup event sent.
+INFO 2025-03-23 05:55:42,829 redisinsight_startup Starting waitress
+INFO 2025-03-23 05:57:44,881 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 05:57:44,884 redisinsight_startup waitress server exited
+INFO 2025-03-23 05:57:53,751 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 05:57:53,752 redisinsight_startup Starting webserver...
+INFO 2025-03-23 05:57:53,752 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 05:57:55,173 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 05:57:55,175 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 05:57:55,227 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 05:57:55,227 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 05:57:55,680 redisinsight Application version: 1.6.3
+INFO 2025-03-23 05:57:55,706 redisinsight Application startup event sent.
+INFO 2025-03-23 05:57:55,710 redisinsight_startup Starting waitress
+INFO 2025-03-23 06:00:58,068 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 06:00:58,070 redisinsight_startup waitress server exited
+INFO 2025-03-23 06:01:09,547 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 06:01:09,548 redisinsight_startup Starting webserver...
+INFO 2025-03-23 06:01:09,548 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 06:01:11,534 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 06:01:11,535 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 06:01:11,582 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 06:01:11,583 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 06:01:11,941 redisinsight Application version: 1.6.3
+INFO 2025-03-23 06:01:11,967 redisinsight Application startup event sent.
+INFO 2025-03-23 06:01:11,970 redisinsight_startup Starting waitress
+INFO 2025-03-23 06:05:39,448 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 06:05:39,451 redisinsight_startup waitress server exited
+INFO 2025-03-23 06:05:51,162 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 06:05:51,163 redisinsight_startup Starting webserver...
+INFO 2025-03-23 06:05:51,163 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 06:05:55,238 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 06:05:55,240 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 06:05:55,355 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 06:05:55,358 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 06:05:55,858 redisinsight Application version: 1.6.3
+INFO 2025-03-23 06:05:55,894 redisinsight Application startup event sent.
+INFO 2025-03-23 06:05:55,897 redisinsight_startup Starting waitress
+INFO 2025-03-23 06:08:46,209 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 06:08:46,227 redisinsight_startup waitress server exited
+INFO 2025-03-23 06:09:20,573 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 06:09:20,574 redisinsight_startup Starting webserver...
+INFO 2025-03-23 06:09:20,575 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 06:09:21,463 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 06:09:21,465 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 06:09:21,553 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 06:09:21,554 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 06:09:21,948 redisinsight Application version: 1.6.3
+INFO 2025-03-23 06:09:21,972 redisinsight Application startup event sent.
+INFO 2025-03-23 06:09:21,976 redisinsight_startup Starting waitress
+INFO 2025-03-23 06:17:31,577 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 06:17:31,585 redisinsight_startup waitress server exited
+INFO 2025-03-23 06:17:38,586 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 06:17:38,587 redisinsight_startup Starting webserver...
+INFO 2025-03-23 06:17:38,587 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 06:17:39,420 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 06:17:39,421 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 06:17:39,459 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 06:17:39,459 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 06:17:39,892 redisinsight Application version: 1.6.3
+INFO 2025-03-23 06:17:39,931 redisinsight Application startup event sent.
+INFO 2025-03-23 06:17:39,936 redisinsight_startup Starting waitress
+INFO 2025-03-23 06:21:46,784 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 06:21:46,792 redisinsight_startup waitress server exited
+INFO 2025-03-23 06:21:53,953 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 06:21:53,954 redisinsight_startup Starting webserver...
+INFO 2025-03-23 06:21:53,955 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 06:21:55,423 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 06:21:55,425 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 06:21:55,518 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 06:21:55,519 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 06:21:55,918 redisinsight Application version: 1.6.3
+INFO 2025-03-23 06:21:55,937 redisinsight Application startup event sent.
+INFO 2025-03-23 06:21:55,939 redisinsight_startup Starting waitress
+INFO 2025-03-23 06:24:41,631 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 06:24:41,634 redisinsight_startup waitress server exited
+INFO 2025-03-23 06:24:51,587 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 06:24:51,588 redisinsight_startup Starting webserver...
+INFO 2025-03-23 06:24:51,589 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 06:24:53,557 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 06:24:53,559 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 06:24:53,686 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 06:24:53,687 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 06:24:54,119 redisinsight Application version: 1.6.3
+INFO 2025-03-23 06:24:54,144 redisinsight Application startup event sent.
+INFO 2025-03-23 06:24:54,147 redisinsight_startup Starting waitress
+INFO 2025-03-23 06:40:21,016 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 06:40:21,020 redisinsight_startup waitress server exited
+INFO 2025-03-23 06:40:59,052 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 06:40:59,054 redisinsight_startup Starting webserver...
+INFO 2025-03-23 06:40:59,054 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 06:41:01,008 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 06:41:01,009 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 06:41:01,051 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 06:41:01,052 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 06:41:01,425 redisinsight Application version: 1.6.3
+INFO 2025-03-23 06:41:01,474 redisinsight Application startup event sent.
+INFO 2025-03-23 06:41:01,487 redisinsight_startup Starting waitress
+INFO 2025-03-23 06:44:25,687 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 06:44:25,690 redisinsight_startup waitress server exited
+INFO 2025-03-23 06:44:34,963 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 06:44:34,964 redisinsight_startup Starting webserver...
+INFO 2025-03-23 06:44:34,965 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 06:44:36,853 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 06:44:36,854 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 06:44:36,924 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 06:44:36,925 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 06:44:37,298 redisinsight Application version: 1.6.3
+INFO 2025-03-23 06:44:37,316 redisinsight Application startup event sent.
+INFO 2025-03-23 06:44:37,319 redisinsight_startup Starting waitress

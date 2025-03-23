@@ -49,7 +49,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(HttpMethod.POST, publicEndpoints).permitAll()
+                        .requestMatchers(HttpMethod.POST, publicEndpoints)
+                        .anonymous().requestMatchers("/login", "/login/oauth2/code/google", "/verify").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer

@@ -64,16 +64,6 @@ public class AuthenticationController {
                 .build();
     }
 
-//    Check OTP
-    @PostMapping("/verifyOTP")
-    APIResponse<AuthenticationResponse> verifyOTP(
-            @Valid @RequestBody VerifyOTPRequest request) {
-        AuthenticationResponse res = otpService.verifyOtp(request);
-        return APIResponse.<AuthenticationResponse>builder()
-                .result(res)
-                .build();
-    }
-
 //    Reset Password
     @PostMapping("/resetPassword")
     APIResponse<AuthenticationResponse> resetPassword(

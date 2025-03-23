@@ -23,7 +23,7 @@ public class EmailConsumer {
     public void consumeEmail(EmailDetailRequest details) {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setTo(details.getRecipient());
             helper.setSubject(details.getSubject());
             helper.setText(details.getMsgBody(), true);

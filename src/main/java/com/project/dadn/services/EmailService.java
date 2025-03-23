@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,16 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class EmailService {
 
-    EmailProducer emailProducer;
+    private final EmailProducer emailProducer;
     static int OTP_TTL = 3;
-    StringRedisTemplate redisTemplate;
+    private final StringRedisTemplate redisTemplate;
+
+    @Value("${link.otp}")
+    private String linkOtp;
+
 
     public void sendEmailReset(VerifyEmailRequest request) {
         String email = request.getEmail();
@@ -35,15 +39,18 @@ public class EmailService {
 
         String otp = OtpUtil.generateOtp();
 
+
+
         redisTemplate.opsForValue().set(redisKey, otp, OTP_TTL, TimeUnit.MINUTES);
 
-        String msgBody =
-                "Your OTP:" + otp ;
+        String verificationLink =  linkOtp + otp + "&email=" + email;
+
+        String msgBody = String.format("<html>" + "<body>" + "<p>Click the button below to verify:</p>" + "<a href=\"%s\" style=\"display:inline-block;padding:10px 20px;background-color:#007BFF;color:white;text-decoration:none;border-radius:5px;\">Verify OTP</a>" + "</body>" + "</html>", verificationLink);
 
         EmailDetailRequest details = EmailDetailRequest.builder()
                 .subject("Reset Password OTP")
                 .msgBody(msgBody)
-                .recipient("vietlh0207@gmail.com")
+                .recipient(email)
                 .build();
 
         emailProducer.processEmail(details);
