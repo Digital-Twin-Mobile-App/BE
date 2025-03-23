@@ -1,3 +1,4 @@
+version: '3.9'
 services:
   postgres:
     image: postgres
@@ -5,13 +6,12 @@ services:
     env_file: .env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_ROOT_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./volumes/postgres_data:/var/lib/postgresql/data
     ports:
-      - "${POSTGRES_LOCAL_PORT}:${POSTGRES_DOCKER_PORT}"
-
+      - "${POSTGRES_PORT}:${POSTGRES_DOCKER_PORT}"
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -22,23 +22,30 @@ services:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
     ports:
-      - "${RABBITMQ_LOCAL_PORT}:${RABBITMQ_DOCKER_PORT}"
-      - "${RABBITMQ_UI_LOCAL_PORT}:${RABBITMQ_UI_DOCKER_PORT}"
+      - "${RABBITMQ_PORT}:${RABBITMQ_DOCKER_PORT}"
+      - "${RABBITMQ_UI_PORT}:${RABBITMQ_UI_DOCKER_PORT}"
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-      - rabbitmq_log:/var/log/rabbitmq
-
+      - ./volumes/rabbitmq_data:/var/lib/rabbitmq
+      - ./volumes/rabbitmq_log:/var/log/rabbitmq
 
   redis:
     image: redis:latest
     container_name: dadn_redis_container
     restart: always
     ports:
-      - "${REDIS_LOCAL_PORT}:${REDIS_DOCKER_PORT}"
+      - "${REDIS_PORT}:${REDIS_DOCKER_PORT}"
     security_opt:
       - no-new-privileges:true
     command: redis-server --save 60 1 --loglevel warning --maxmemory 200mb --maxmemory-policy allkeys-lru
+    volumes:
+      - ./volumes/redis_data:/data
 
+  redisinsight: # GUI
+    image: redislabs/redisinsight:1.6.3
+    ports:
+      - "${REDIS_GUI_PORT}:${REDIS_GUI_DOCKER_PORT}"
+    volumes:
+      - ./volumes/redisinsight:/db
 
 volumes:
   postgres_data:
