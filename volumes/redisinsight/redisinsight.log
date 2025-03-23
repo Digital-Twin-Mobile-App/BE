@@ -889,3 +889,19 @@ INFO 2025-03-23 06:44:36,925 redisinsight_startup   No migrations to apply.
 INFO 2025-03-23 06:44:37,298 redisinsight Application version: 1.6.3
 INFO 2025-03-23 06:44:37,316 redisinsight Application startup event sent.
 INFO 2025-03-23 06:44:37,319 redisinsight_startup Starting waitress
+INFO 2025-03-23 14:05:08,930 redisinsight_startup Registered SIGTERM handler
+INFO 2025-03-23 14:05:08,932 redisinsight_startup Starting webserver...
+INFO 2025-03-23 14:05:08,933 redisinsight_startup Visit http://0.0.0.0:8001 in your web browser. Press CTRL-C to exit.
+INFO 2025-03-23 14:05:11,348 redisinsight_startup Operations to perform:
+
+INFO 2025-03-23 14:05:11,349 redisinsight_startup   Apply all migrations: admin, auth, authtoken, browser, cluster_management, contenttypes, core, memory_analysis, profiling, recommendation, sessions
+
+INFO 2025-03-23 14:05:11,405 redisinsight_startup Running migrations:
+
+INFO 2025-03-23 14:05:11,406 redisinsight_startup   No migrations to apply.
+
+INFO 2025-03-23 14:05:11,895 redisinsight Application version: 1.6.3
+INFO 2025-03-23 14:05:11,932 redisinsight Application startup event sent.
+INFO 2025-03-23 14:05:11,940 redisinsight_startup Starting waitress
+INFO 2025-03-23 14:06:52,242 redisinsight_startup Received SIGTERM. RedisInsight is shutting down.
+INFO 2025-03-23 14:06:52,248 redisinsight_startup waitress server exited

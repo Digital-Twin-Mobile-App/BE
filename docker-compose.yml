@@ -4,8 +4,12 @@ services:
     container_name: dadn_backend
     env_file: .env
     image: vietlecd/dadn:latest
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     environment:
-      - GOOGLE_CREDENTIALS_PATH=${GOOGLE_CREDENTIALS_PATH}
+      - DDL_UPDATE=${DDL_UPDATE}
+      - GOOGLE_CREDENTIALS_PATH=/app/cred.json
       - GOOGLE_DRIVE_FOLDER_ID=${GOOGLE_DRIVE_FOLDER_ID}
       - GOOGLE_ID=${GOOGLE_ID}
       - GOOGLE_PASSWORD=${GOOGLE_PASSWORD}
@@ -25,6 +29,8 @@ services:
       - SIGNER_KEY=${SIGNER_KEY}
     ports:
       - "${BACKEND_PORT}:${BACKEND_DOCKER_PORT}"
+    volumes:
+      - ./cred.json:/app/cred.json
     depends_on:
       - postgres
       - rabbitmq
