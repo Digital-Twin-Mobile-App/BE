@@ -12,5 +12,12 @@ import lombok.experimental.FieldDefaults;
 public class AuthenticationResponse {
     String token;
     boolean authenticated;
+
+    public static AuthenticationResponse buildAuthenticationResponse(String token, boolean authenticated) {
+        return AuthenticationResponse.builder()
+                .token(token)
+                .authenticated(authenticated)
+                .build();
+    }
 }
 

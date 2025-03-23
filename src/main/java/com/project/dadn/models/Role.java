@@ -25,7 +25,4 @@ public class Role {
     @ManyToMany
     Set<Permission> permissions;
 
-    public static String ADMIN = "ADMIN";
-    public static String USER = "USER";
-
 }

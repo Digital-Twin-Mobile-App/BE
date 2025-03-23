@@ -1,0 +1,85 @@
+server:
+  port: 8080
+
+google:
+  drive:
+    credentials:
+      path: ${GOOGLE_CREDENTIALS_PATH}
+    folder-id: ${GOOGLE_DRIVE_FOLDER_ID}
+
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  profiles:
+    active: ${ENV}
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    hikari:
+      maximum-pool-size: 90
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      pool-name: HikariConnPool
+      max-lifetime: 1800000
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      timeout: ${REDIS_TIMEOUT}
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_ID}
+            client-secret: ${GOOGLE_PASSWORD}
+            scope:
+              - profile
+              - email
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            authorization-grant-type: authorization_code
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${EMAIL}
+    password: ${APP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH}
+          starttls:
+            enable: ${MAIL_SMTP_STARTTLS_ENABLE}
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        integration.blazebit.enabled: true
+
+jwt:
+  signerKey: ${SIGNER_KEY}
+  valid-duration: 3600
+  refreshable-duration: 3600000
+
+

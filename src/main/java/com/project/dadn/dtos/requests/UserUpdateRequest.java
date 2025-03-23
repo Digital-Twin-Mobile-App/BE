@@ -5,7 +5,9 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -13,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserUpdateRequest {
-    String passWord;
+    String email;
     String firstName;
     String lastName;
     LocalDate dob;
