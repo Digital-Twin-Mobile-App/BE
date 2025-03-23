@@ -9,14 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -31,10 +25,9 @@ public class SecurityConfig {
             "/uploadImage",
             "/login/",
             "/user",
-            "/auth/login",
+            "/auth/token",
             "/auth/introspect",
             "/auth/logout",
-            "/auth/*",
             "/roles",
             "/permissions"
     };
@@ -49,7 +42,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(HttpMethod.POST, publicEndpoints).permitAll()
+                        .requestMatchers(HttpMethod.POST, publicEndpoints)
+                        .anonymous().requestMatchers("/login", "/login/oauth2/code/google", "/verify").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
@@ -58,7 +52,6 @@ public class SecurityConfig {
                 )
                 .oauth2Login(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable); //secure from attack
-
         return httpSecurity.build();
     }
 
@@ -77,25 +70,5 @@ public class SecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
-    }
-
-    @Bean
-    public OAuth2AuthorizedClientManager authorizedClientManager(
-            ClientRegistrationRepository clientRegistrationRepository,
-            OAuth2AuthorizedClientRepository authorizedClientRepository) {
-
-        OAuth2AuthorizedClientProvider authorizedClientProvider =
-                OAuth2AuthorizedClientProviderBuilder.builder()
-                        .authorizationCode()
-                        .refreshToken()
-                        .clientCredentials()
-                        .password()
-                        .build();
-
-        DefaultOAuth2AuthorizedClientManager authorizedClientManager =
-                new DefaultOAuth2AuthorizedClientManager(clientRegistrationRepository, authorizedClientRepository);
-        authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
-
-        return authorizedClientManager;
     }
 }

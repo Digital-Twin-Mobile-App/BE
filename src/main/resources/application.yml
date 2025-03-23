@@ -83,3 +83,8 @@ jwt:
   refreshable-duration: 3600000
 
 
+
+link:
+  otp: "http://localhost:${BACKEND_PORT}/verify?otp="
+
+
