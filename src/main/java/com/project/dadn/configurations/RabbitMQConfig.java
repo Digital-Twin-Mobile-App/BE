@@ -2,14 +2,22 @@ package com.project.dadn.configurations;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 
 @Configuration
 public class RabbitMQConfig {
+
+    @Value("${spring.rabbitmq.host}")
+    private String rabbitMqHost;
+
+    @Value("${spring.rabbitmq.port}")
+    private String rabbitMqPort;
 
     public static final String EMAIL_QUEUE = "email_queue";
     public static final String IMAGE_UPLOAD_QUEUE = "image_upload_queue";
@@ -24,6 +32,17 @@ public class RabbitMQConfig {
     @Bean
     public Queue imageUploadQueue() {
         return new Queue(IMAGE_UPLOAD_QUEUE, true);
+    }
+
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitMqHost);
+        connectionFactory.setPort(Integer.parseInt(rabbitMqPort));
+
+        connectionFactory.setRequestedHeartBeat(60);
+        connectionFactory.setConnectionTimeout(5000);
+
+        return connectionFactory;
     }
 
     // Bộ chuyển đổi JSON
