@@ -54,6 +54,10 @@ public class TokenService {
         String email = signedJWT.getJWTClaimsSet().getSubject();
         int tokenVersion = signedJWT.getJWTClaimsSet().getIntegerClaim(tokenVersionString);
 
+        if (redisUtil.hasKey(tokenKey)) {
+            throw new AppException(ErrorCodes.UNAUTHENTICATED);
+        }
+
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new AppException(ErrorCodes.UNAUTHENTICATED));
 

@@ -21,4 +21,9 @@ public class RedisUtil {
     public void save(String token, String version) {
         redisTemplate.opsForValue().set(token, version, validDuration, TimeUnit.SECONDS);
     }
+
+    public boolean hasKey(String key) {
+        return Boolean.TRUE.equals(redisTemplate.hasKey(key));
+    }
+
 }
