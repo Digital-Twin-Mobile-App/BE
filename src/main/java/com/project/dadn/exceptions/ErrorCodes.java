@@ -32,6 +32,7 @@ public enum ErrorCodes {
         FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "File not found", 404),
         FILE_UPLOAD_FAILED(HttpStatus.CONFLICT, "File upload failed", 409),
         USER_CREATION_FAILED(HttpStatus.CONFLICT, "User creation failed", 409),
+        OTP_NOT_VERIFIED(HttpStatus.CONFLICT, "OTP not verified", 409),
     ;
 
     private HttpStatus status;

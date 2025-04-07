@@ -25,8 +25,6 @@ public class AuthenticationController {
     AuthenticationService authenticationService;
     EmailService emailService;
     OtpService otpService;
-    GoogleService googleService;
-
 
     @PostMapping("/login")
     APIResponse<AuthenticationResponse> authenticate(
@@ -67,11 +65,30 @@ public class AuthenticationController {
 //    Reset Password
     @PostMapping("/resetPassword")
     APIResponse<AuthenticationResponse> resetPassword(
-            @Valid @RequestBody ChangePasswordRequest request,
-            HttpServletRequest req) throws ParseException {
-        authenticationService.resetPassword(request, req);
+            @Valid @RequestBody ChangePasswordRequest request) throws ParseException {
+        authenticationService.changePassword(request);
         return APIResponse.<AuthenticationResponse>builder()
                 .message("Password changed successfully. Please log in again.")
+                .build();
+    }
+
+//    Change Password
+    @PostMapping("/changePassword")
+    APIResponse<AuthenticationResponse> changePassword(
+            @Valid @RequestBody ChangePasswordRequest request) throws ParseException {
+        AuthenticationResponse res = authenticationService.changePassword(request);
+        return APIResponse.<AuthenticationResponse>builder()
+                .result(res)
+                .build();
+    }
+
+//    Check OTP
+    @PostMapping("/verify-otp")
+    APIResponse<AuthenticationResponse> verifyOTP(
+            @RequestBody OtpVerificationRequest request) {
+        AuthenticationResponse res = otpService.verifyOtp(request.getOtp(), request.getEmail());
+        return APIResponse.<AuthenticationResponse>builder()
+                .result(res)
                 .build();
     }
 

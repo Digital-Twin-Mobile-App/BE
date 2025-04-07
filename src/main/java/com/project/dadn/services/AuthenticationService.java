@@ -4,6 +4,7 @@ import com.nimbusds.jose.*;
 import com.nimbusds.jwt.SignedJWT;
 import com.project.dadn.dtos.requests.*;
 import com.project.dadn.dtos.responses.AuthenticationResponse;
+import com.project.dadn.dtos.responses.IntrospectResponse;
 import com.project.dadn.exceptions.AppException;
 import com.project.dadn.exceptions.ErrorCodes;
 import com.project.dadn.models.User;
@@ -34,9 +35,6 @@ public class AuthenticationService {
     TokenUtil tokenUtil;
     RedisTemplate<String, String> redisTemplate;
     PasswordEncoder passwordEncoder;
-    SecurityUtil securityUtil;
-    RedisUtil redisUtil;
-
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
@@ -84,7 +82,7 @@ public class AuthenticationService {
     public void logout(LogoutRequest request) {
         String token = request.getToken();
         try {
-            SignedJWT signedJWT = tokenService.verifyToken(token, true);
+            SignedJWT signedJWT = tokenService.verifyToken(token, false);
             String tokenKey = signedJWT.getJWTClaimsSet().getJWTID();
             String tokenVersion = jwtUtil.getTokenVersion(token);
             long adjustedExpireTime = tokenUtil.aroundTimeToken(signedJWT);
@@ -98,19 +96,27 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public void resetPassword(ChangePasswordRequest request, HttpServletRequest req) throws ParseException {
+    public AuthenticationResponse changePassword(ChangePasswordRequest request) throws ParseException {
+        String email = request.getEmail();
+        String redisKey = "otp_verified:" + email;
+        String otpVerified = redisTemplate.opsForValue().get(redisKey);
 
-        String token = securityUtil.getTokenFromRequest(req);
-
-        String email = securityUtil.extractEmailFromToken(token);
+        if (otpVerified == null || !otpVerified.equals("true")) {
+            throw new AppException(ErrorCodes.OTP_NOT_VERIFIED);
+        }
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCodes.UNAUTHENTICATED));
+                .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_EXISTED));
 
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
 
-        redisUtil.save(token, String.valueOf(user.getTokenVersion()));
+        redisTemplate.delete(redisKey);
+
+        return AuthenticationResponse.builder()
+                .authenticated(true)
+                .token(tokenUtil.generateToken(user))
+                .build();
     }
 
 
