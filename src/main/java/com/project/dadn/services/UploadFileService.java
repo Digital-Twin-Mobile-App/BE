@@ -36,9 +36,6 @@ public class UploadFileService {
 
     private final ImageUploadProducer imageUploadProducer;
 
-    /**
-     * Xử lý upload file lên hệ thống
-     */
     public APIResponse<String> uploadFile(MultipartFile file) {
         try {
             java.io.File tempFile = saveFileToLocal(file);
@@ -58,31 +55,22 @@ public class UploadFileService {
         }
     }
 
-    /**
-     * Lưu file tạm vào thư mục cục bộ
-     */
     private java.io.File saveFileToLocal(MultipartFile file) throws IOException {
         String baseDirectory = System.getProperty("user.dir") + "/uploads/";
         java.io.File directory = new java.io.File(baseDirectory);
 
-        // Tạo thư mục nếu chưa tồn tại
         if (!directory.exists()) {
             directory.mkdirs();
         }
 
-        // Định nghĩa đường dẫn đầy đủ của file
         String filePath = baseDirectory + file.getOriginalFilename();
         java.io.File localFile = new java.io.File(filePath);
 
-        // Lưu file vào thư mục
         file.transferTo(localFile);
         System.out.println("File saved at: " + localFile.getAbsolutePath());
         return localFile;
     }
 
-    /**
-     * Upload file lên Google Drive
-     */
     public void uploadImageToDrive(java.io.File file) throws GeneralSecurityException, IOException {
         Drive driveService = createDriveService();
 
@@ -97,17 +85,12 @@ public class UploadFileService {
 
         System.out.println("File uploaded successfully: " + uploadedFile.getId());
 
-        // Xóa file sau khi upload thành công
         if (file.delete()) {
             System.out.println("Deleted file: " + file.getAbsolutePath());
         } else {
             System.err.println("Failed to delete file: " + file.getAbsolutePath());
         }
     }
-
-    /**
-     * Tạo kết nối với Google Drive
-     */
     private Drive createDriveService() throws GeneralSecurityException, IOException {
         GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(credentialsPath))
                 .createScoped(Collections.singleton(DriveScopes.DRIVE));
