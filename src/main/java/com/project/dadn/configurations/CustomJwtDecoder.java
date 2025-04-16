@@ -65,7 +65,7 @@ public class CustomJwtDecoder implements JwtDecoder {
         boolean isValid = true;
 
         try {
-            verifyToken(token, false); // Gọi phương thức xác thực token
+            verifyToken(token); // Gọi phương thức xác thực token
         } catch (AppException e) {
             isValid = false;
         }
@@ -73,7 +73,7 @@ public class CustomJwtDecoder implements JwtDecoder {
         return IntrospectResponse.builder().valid(isValid).build();
     }
 
-    private SignedJWT verifyToken(String token, boolean isRefresh) throws JOSEException, ParseException {
+    private SignedJWT verifyToken(String token) throws JOSEException, ParseException {
         SignedJWT signedJWT = SignedJWT.parse(token);
         JWSVerifier verifier = new MACVerifier(signerKey.getBytes());
 
@@ -81,21 +81,11 @@ public class CustomJwtDecoder implements JwtDecoder {
             throw new AppException(ErrorCodes.UNAUTHENTICATED);
         }
         String tokenKey = signedJWT.getJWTClaimsSet().getJWTID();
-        String email = signedJWT.getJWTClaimsSet().getSubject();
-        int tokenVersion = signedJWT.getJWTClaimsSet().getIntegerClaim(tokenVersionString);
 
         if (redisUtil.hasKey(tokenKey)) {
             throw new AppException(ErrorCodes.UNAUTHENTICATED);
         }
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCodes.UNAUTHENTICATED));
-
-        if (isRefresh && user.getTokenVersion() < tokenVersion) {
-            throw new AppException(ErrorCodes.UNAUTHENTICATED);
-        }
-
-        redisUtil.save(tokenKey, String.valueOf(user.getTokenVersion()));
 
         return signedJWT;
     }

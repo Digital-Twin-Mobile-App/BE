@@ -63,7 +63,6 @@ public class TokenUtil {
                 ))
                 .jwtID(UUID.randomUUID().toString())
                 .claim("scope", buildScope(user))
-                .claim("token_version", user.getTokenVersion())
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -93,20 +92,6 @@ public class TokenUtil {
         return stringJoiner.toString();
     }
 
-    public String getTokenVersion(String token) throws ParseException {
-        SignedJWT signedJWT = SignedJWT.parse(token);
-
-        Object tokenVersionObj = signedJWT.getJWTClaimsSet().getClaim("token_version");
-
-        if (tokenVersionObj instanceof String str) {
-            return str;
-        } else if (tokenVersionObj instanceof Number number) {
-            return String.valueOf(number);
-        }
-
-        throw new AppException(ErrorCodes.INVALID_TOKEN_VERSION);
-    }
-
     public long aroundTimeToken(SignedJWT signedJWT) throws ParseException {
 
         long expireTime = signedJWT.getJWTClaimsSet().getExpirationTime().getTime() - System.currentTimeMillis();
@@ -128,13 +113,5 @@ public class TokenUtil {
             log.info("Token is empty");
         }
     }
-
-    public String parseTokenEmail(String token) throws ParseException {
-        SignedJWT signedJWT = SignedJWT.parse(token);
-        return signedJWT.getJWTClaimsSet().getSubject();
-    }
-
-
-
 
 }

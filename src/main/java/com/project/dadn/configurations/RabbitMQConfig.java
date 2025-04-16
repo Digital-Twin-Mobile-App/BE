@@ -67,4 +67,6 @@ public class RabbitMQConfig {
         factory.setMessageConverter(jsonMessageConverter());
         return factory;
     }
+
+
 }

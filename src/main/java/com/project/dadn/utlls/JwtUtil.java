@@ -18,19 +18,19 @@ import java.text.ParseException;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class JwtUtil {
 
-    public String getTokenVersion(String token) throws ParseException {
-        SignedJWT signedJWT = SignedJWT.parse(token);
-
-        Object tokenVersionObj = signedJWT.getJWTClaimsSet().getClaim("token_version");
-
-        if (tokenVersionObj instanceof String str) {
-            return str;
-        } else if (tokenVersionObj instanceof Number number) {
-            return String.valueOf(number);
-        }
-
-        throw new AppException(ErrorCodes.INVALID_TOKEN_VERSION);
-    }
+//    public String getTokenVersion(String token) throws ParseException {
+//        SignedJWT signedJWT = SignedJWT.parse(token);
+//
+//        Object tokenVersionObj = signedJWT.getJWTClaimsSet().getClaim("token_version");
+//
+//        if (tokenVersionObj instanceof String str) {
+//            return str;
+//        } else if (tokenVersionObj instanceof Number number) {
+//            return String.valueOf(number);
+//        }
+//
+//        throw new AppException(ErrorCodes.INVALID_TOKEN_VERSION);
+//    }
 
     public String getEmailToken(String token) throws ParseException {
         SignedJWT signedJWT = SignedJWT.parse(token);

@@ -29,13 +29,13 @@ spring:
 
   data:
     redis:
-      host: ${REDIS_HOST}
-      port: ${REDIS_PORT}
-      timeout: ${REDIS_TIMEOUT}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6380}
+      timeout: ${REDIS_TIMEOUT:60000}
 
   rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: ${RABBITMQ_PORT}
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5673}
 
   security:
     oauth2:
@@ -79,12 +79,9 @@ spring:
 
 jwt:
   signerKey: ${SIGNER_KEY}
-  valid-duration: 3600
+  valid-duration: 360000
   refreshable-duration: 3600000
 
 
-
-link:
-  otp: "http://localhost:${BACKEND_PORT}/verify?otp="
 
 

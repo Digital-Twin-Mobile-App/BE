@@ -61,10 +61,10 @@ public class AuthenticationService {
         SignedJWT signedJWT = tokenService.verifyToken(request.getToken(), true);
 
         String jit = signedJWT.getJWTClaimsSet().getJWTID();
-        String tokenVersion = jwtUtil.getTokenVersion(token);
+//        String tokenVersion = jwtUtil.getTokenVersion(token);
         long adjustedExpireTime = tokenUtil.aroundTimeToken(signedJWT);
 
-        redisTemplate.opsForValue().set(jit,tokenVersion, adjustedExpireTime, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(jit,"0", adjustedExpireTime, TimeUnit.SECONDS);
 
         String email = signedJWT.getJWTClaimsSet().getSubject();
 
@@ -84,10 +84,10 @@ public class AuthenticationService {
         try {
             SignedJWT signedJWT = tokenService.verifyToken(token, false);
             String tokenKey = signedJWT.getJWTClaimsSet().getJWTID();
-            String tokenVersion = jwtUtil.getTokenVersion(token);
+//            String tokenVersion = jwtUtil.getTokenVersion(token);
             long adjustedExpireTime = tokenUtil.aroundTimeToken(signedJWT);
 
-            redisTemplate.opsForValue().set(tokenKey,tokenVersion, adjustedExpireTime, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(tokenKey,"0", adjustedExpireTime, TimeUnit.SECONDS);
             AuthenticationResponse.builder()
                     .build();
         } catch (ParseException | JOSEException e) {
