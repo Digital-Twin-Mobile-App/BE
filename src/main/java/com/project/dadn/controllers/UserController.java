@@ -5,12 +5,17 @@ import com.project.dadn.dtos.requests.UserUpdateRequest;
 import com.project.dadn.dtos.responses.APIResponse;
 import com.project.dadn.dtos.responses.UserResponse;
 import com.project.dadn.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,7 +49,7 @@ public class UserController {
                 .build();
     }
 
-    @GetMapping("name")
+    @GetMapping("/name")
     APIResponse<UserResponse> getUser(
             @RequestParam("userId") UUID userId){
         return APIResponse.<UserResponse>builder()
@@ -67,6 +72,26 @@ public class UserController {
                 .build();
     }
 
+    @PatchMapping(path = "/update-user")
+    public APIResponse<UserResponse> updateUserWithAvatar(
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) String dob,
+            @RequestPart(value = "avatar", required = false) MultipartFile avatarFile,
+            HttpServletRequest request) throws ParseException {
+
+        UserUpdateRequest userRequest = UserUpdateRequest.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .dob(dob != null ? LocalDate.parse(dob) : null)
+                .build();
+
+        return APIResponse.<UserResponse>builder()
+                .result(userService.updateUserWithAvatar(userRequest, avatarFile, request))
+                .build();
+    }
+
+
     @DeleteMapping
     APIResponse<String> deleteUser(
             @RequestParam UUID userId){
@@ -75,6 +100,4 @@ public class UserController {
                 .result("User has been deleted")
                 .build();
     }
-
-
 }

@@ -51,22 +51,10 @@ public class TokenService {
         }
 
         String tokenKey = signedJWT.getJWTClaimsSet().getJWTID();
-        String email = signedJWT.getJWTClaimsSet().getSubject();
-//        int tokenVersion = signedJWT.getJWTClaimsSet().getIntegerClaim(tokenVersionString);
 
         if (redisUtil.hasKey(tokenKey)) {
             throw new AppException(ErrorCodes.UNAUTHENTICATED);
         }
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCodes.UNAUTHENTICATED));
-//
-//        if (isRefresh && ) {
-//            throw new AppException(ErrorCodes.UNAUTHENTICATED);
-//        }
-
-        redisUtil.save(tokenKey, String.valueOf(user.getTokenVersion()));
-
         return signedJWT;
     }
 

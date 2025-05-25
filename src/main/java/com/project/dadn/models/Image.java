@@ -3,6 +3,7 @@ package com.project.dadn.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -12,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "images")
-public class Image {
+public class Image{
     @Id
     @GeneratedValue
     @Column(name = "image_id", columnDefinition = "UUID", updatable = false, nullable = false)
@@ -33,5 +34,12 @@ public class Image {
     @ManyToOne
     @JoinColumn(name = "uploader")
     private User uploader;
+
+    @ManyToOne
+    @JoinColumn(name = "plant_id")
+    private Plant plant;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 }
 

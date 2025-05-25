@@ -12,6 +12,8 @@ import com.project.dadn.dtos.requests.UserUpdateRequest;
 
 import com.project.dadn.enums.RoleEnum;
 import com.project.dadn.models.Role;
+import com.project.dadn.utlls.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,7 +23,17 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.GeneralSecurityException;
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -36,6 +48,8 @@ public class UserService {
     RoleRepository roleRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
+    JwtUtil jwtUtil;
+    private final UploadFileService uploadFileService;
 
     public UserResponse createUser(UserCreationRequest request){
         log.info("Service: Create User");
@@ -102,4 +116,50 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_EXISTED)));
     }
+
+    @Transactional
+    public UserResponse updateUserWithAvatar(UserUpdateRequest userRequest, MultipartFile avatarFile, HttpServletRequest request) throws ParseException {
+        String userToken = jwtUtil.getUserToken(request);
+        String userEmail = jwtUtil.getEmailToken(userToken);
+        User user = userRepository.findByEmail(userEmail).orElseThrow(
+                () -> new AppException(ErrorCodes.USER_NOT_EXISTED)
+        );
+
+        if (userRequest.getFirstName() != null)
+            user.setFirstName(userRequest.getFirstName());
+
+        if (userRequest.getLastName() != null)
+            user.setLastName(userRequest.getLastName());
+
+        if (userRequest.getDob() != null)
+            user.setDob(userRequest.getDob());
+
+        UserResponse response = userMapper.toUserResponse(userRepository.save(user)); //
+
+        if (avatarFile != null && !avatarFile.isEmpty()) {
+            try {
+                String fileName = UUID.randomUUID() + "_" + avatarFile.getOriginalFilename();
+                String baseDir = System.getProperty("user.dir") + "/uploads/";
+                java.io.File dir = new java.io.File(baseDir);
+                if (!dir.exists()) dir.mkdirs();
+
+                java.io.File tempFile = new java.io.File(baseDir + fileName);
+                avatarFile.transferTo(tempFile);
+
+//                String imageUrl = uploadFileService.uploadImageToDriveAndReturnUrl(tempFile);
+                uploadFileService.uploadAvatarAsync(user, tempFile);
+
+
+            } catch (IOException e) {
+                throw new RuntimeException("Không thể upload avatar lên Google Drive", e);
+            } catch (Exception e) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        return response;
+    }
+
 }

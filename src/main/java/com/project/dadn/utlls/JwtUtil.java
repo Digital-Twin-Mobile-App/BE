@@ -4,6 +4,7 @@ package com.project.dadn.utlls;
 import com.nimbusds.jwt.SignedJWT;
 import com.project.dadn.exceptions.AppException;
 import com.project.dadn.exceptions.ErrorCodes;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -18,23 +19,18 @@ import java.text.ParseException;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class JwtUtil {
 
-//    public String getTokenVersion(String token) throws ParseException {
-//        SignedJWT signedJWT = SignedJWT.parse(token);
-//
-//        Object tokenVersionObj = signedJWT.getJWTClaimsSet().getClaim("token_version");
-//
-//        if (tokenVersionObj instanceof String str) {
-//            return str;
-//        } else if (tokenVersionObj instanceof Number number) {
-//            return String.valueOf(number);
-//        }
-//
-//        throw new AppException(ErrorCodes.INVALID_TOKEN_VERSION);
-//    }
-
     public String getEmailToken(String token) throws ParseException {
         SignedJWT signedJWT = SignedJWT.parse(token);
         return signedJWT.getJWTClaimsSet().getSubject();
 
+    }
+
+    public String getUserToken(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        if (token != null && token.startsWith("Bearer ")) {
+            return token.substring(7);
+        } else {
+            throw new RuntimeException("Token không hợp lệ hoặc thiếu Authorization header");
+        }
     }
 }

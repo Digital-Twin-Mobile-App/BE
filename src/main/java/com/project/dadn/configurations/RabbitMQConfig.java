@@ -1,6 +1,7 @@
 package com.project.dadn.configurations;
 
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -21,6 +22,7 @@ public class RabbitMQConfig {
 
     public static final String EMAIL_QUEUE = "email_queue";
     public static final String IMAGE_UPLOAD_QUEUE = "image_upload_queue";
+    public static final String AVATAR_UPLOAD_QUEUE = "avatar_upload_queue";
 
     // Tạo hàng đợi cho email
     @Bean
@@ -31,7 +33,16 @@ public class RabbitMQConfig {
     // Tạo hàng đợi cho upload ảnh
     @Bean
     public Queue imageUploadQueue() {
-        return new Queue(IMAGE_UPLOAD_QUEUE, true);
+        return QueueBuilder.durable(IMAGE_UPLOAD_QUEUE)
+                .ttl(60000)  // 60 seconds timeout for messages
+                .build();
+    }
+
+    @Bean
+    public Queue avatarUploadQueue() {
+        return QueueBuilder.durable(AVATAR_UPLOAD_QUEUE)
+                .ttl(30000)
+                .build();
     }
 
     @Bean
