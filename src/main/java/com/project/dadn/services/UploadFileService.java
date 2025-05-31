@@ -19,6 +19,7 @@ import com.project.dadn.repositories.ImageRepository;
 import com.project.dadn.repositories.PlantRepository;
 import com.project.dadn.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UploadFileService {
 
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
@@ -47,7 +49,6 @@ public class UploadFileService {
     @Value("${google.drive.folder-id}")
     private String folderId;
 
-//    private final ImageUploadProducer imageUploadProducer;
 
     public APIResponse<String> uploadFile(MultipartFile file) {
         try {
@@ -55,8 +56,6 @@ public class UploadFileService {
             if (tempFile == null) {
                 throw new AppException(ErrorCodes.FILE_NOT_FOUND);
             }
-
-//            imageUploadProducer.upload(tempFile.getAbsolutePath());
 
             return APIResponse.<String>builder()
                     .code(200)
@@ -115,7 +114,7 @@ public class UploadFileService {
                 .build();
     }
 
-    public String uploadImageToDriveAndReturnUrl(java.io.File file) throws GeneralSecurityException, IOException {
+    public String uploadImageToDriveAndReturnUrlNor(java.io.File file) throws GeneralSecurityException, IOException {
         Drive driveService = createDriveService();
 
         File fileMetadata = new File();
@@ -130,17 +129,42 @@ public class UploadFileService {
         String fileId = uploadedFile.getId();
         String imageUrl = "https://drive.google.com/uc?id=" + fileId;
 
-        if (file.delete()) {
-            System.out.println("Deleted temp file: " + file.getAbsolutePath());
-        }
+        // Xóa file tạm sau khi đã upload xong
+//        if (file.delete()) {
+//            log.info("Deleted temp file: {}", file.getAbsolutePath());
+//        }
 
         return imageUrl;
+    }
+
+
+    @Async
+    public CompletableFuture<String> uploadImageToDriveAndReturnUrl(java.io.File file) {
+        try {
+            Drive driveService = createDriveService();
+
+            File fileMetadata = new File();
+            fileMetadata.setName(file.getName());
+            fileMetadata.setParents(Collections.singletonList(folderId));
+
+            FileContent mediaContent = new FileContent("image/jpeg", file);
+            File uploadedFile = driveService.files().create(fileMetadata, mediaContent)
+                    .setFields("id")
+                    .execute();
+
+            String fileId = uploadedFile.getId();
+            String imageUrl = "https://drive.google.com/uc?id=" + fileId;
+
+            return CompletableFuture.completedFuture(imageUrl);
+        } catch (Exception e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
 
     @Async
     public void uploadAvatarAsync(User user, java.io.File tempFile) {
         try {
-            String imageUrl = uploadImageToDriveAndReturnUrl(tempFile);
+            String imageUrl = uploadImageToDriveAndReturnUrlNor(tempFile);
             user.setAvatarUrl(imageUrl);
             userRepository.save(user); // lưu lại URL đã cập nhật
         } catch (Exception e) {
@@ -152,23 +176,12 @@ public class UploadFileService {
     public void uploadCoverImgAsync(Plant plant, java.io.File tempFile) throws GeneralSecurityException, IOException {
         try {
 
-            String imageUrl = uploadImageToDriveAndReturnUrl(tempFile);
+            String imageUrl = uploadImageToDriveAndReturnUrlNor(tempFile);
             plant.setPlantCoverUrl(imageUrl);
             plantRepository.save(plant); // lưu lại URL đã cập nhật
         } catch (Exception e) {
             System.err.println("Async cover failed: " + e.getMessage());
         }
-    }
-
-    @Async
-    public void uploadImageAsync(Image image, java.io.File file) {
-            try {
-                String imageUrl = uploadImageToDriveAndReturnUrl(file);
-                image.setMediaUrl(imageUrl);
-                imageRepository.save(image);
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to upload image to Drive", e);
-            }
     }
 
 }

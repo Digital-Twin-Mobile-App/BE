@@ -1,6 +1,7 @@
 package com.project.dadn.controllers;
 
 import com.project.dadn.dtos.responses.APIResponse;
+import com.project.dadn.dtos.responses.ImageHistoryResponse;
 import com.project.dadn.dtos.responses.PlantResponse;
 import com.project.dadn.enums.TreeStatus;
 import com.project.dadn.enums.WateringFrequency;
@@ -37,10 +38,11 @@ public class PlantController {
 
     @PostMapping("/create")
     public APIResponse<PlantResponse> addPlantWithCover(
-            @RequestParam("coverImage") MultipartFile coverImageFile,
+            @RequestParam("image") MultipartFile coverImageFile,
+            @RequestParam(required = false) String plantName,
             HttpServletRequest request) throws ParseException {
 
-        PlantResponse plantResponse = plantService.addPlantWithCover(coverImageFile, request);
+        PlantResponse plantResponse = plantService.addPlantWithCover(coverImageFile, request, plantName);
 
         return APIResponse.<PlantResponse>builder()
                 .result(plantResponse)
@@ -48,14 +50,14 @@ public class PlantController {
     }
 
     @PostMapping("/upload")
-    public APIResponse<Image> addImageToPlant(
+    public APIResponse<ImageHistoryResponse> addImageToPlant(
             @RequestParam UUID plantId,
             @RequestParam("image") MultipartFile imageFile,
             HttpServletRequest request) throws ParseException {
 
-        Image savedImage = imageService.addImageToPlant(plantId, imageFile, request);
+        ImageHistoryResponse savedImage = imageService.addImageToPlant(plantId, imageFile, request);
 
-        return APIResponse.<Image>builder()
+        return APIResponse.<ImageHistoryResponse>builder()
                 .result(savedImage)
                 .build();
     }
@@ -93,7 +95,7 @@ public class PlantController {
                 .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_EXISTED));
 
         Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(imageService.getUserUploadHistory(user.getId(), pageable));
+        return ResponseEntity.ok(imageService.getUserPlantsWithCoverImage(user.getId(), pageable));
     }
 
 }

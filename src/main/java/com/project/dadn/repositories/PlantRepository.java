@@ -12,6 +12,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PlantRepository extends JpaRepository<Plant, UUID> {
-
-
+    Page<Plant> findByOwner_Id(UUID ownerId, Pageable pageable);
 }

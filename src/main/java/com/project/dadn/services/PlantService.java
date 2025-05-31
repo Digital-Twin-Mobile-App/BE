@@ -32,12 +32,13 @@ public class PlantService {
     private final PlantMapper plantMapper;
 
     @Transactional
-    public PlantResponse addPlantWithCover(MultipartFile coverImageFile, HttpServletRequest request) throws ParseException {
+    public PlantResponse addPlantWithCover(MultipartFile coverImageFile, HttpServletRequest request, String plantName) throws ParseException {
         String email = jwtUtil.getEmailToken(jwtUtil.getUserToken(request));
         User user = userRepository.findByEmail(email).orElseThrow();
 
         Plant plant = new Plant();
         plant.setOwner(user);
+        plant.setName(plantName);
 
         PlantResponse response = plantMapper.toResponse(plantRepository.save(plant));
 
@@ -57,7 +58,8 @@ public class PlantService {
                 plantRepository.save(plant);
 
             } catch (Exception e) {
-                System.err.println("Async cover image upload failed: " + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException("Error processing plant upload: " + e.getMessage(), e);
             }
         }
 

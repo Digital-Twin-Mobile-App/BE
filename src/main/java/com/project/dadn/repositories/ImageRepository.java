@@ -9,9 +9,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-public interface ImageRepository extends JpaRepository<Image, Long> {
+public interface ImageRepository extends JpaRepository<Image, UUID> {
     // Tìm tất cả ảnh của một cây
     List<Image> findByPlantOrderByIdDesc(Plant plant);
 
@@ -27,4 +28,16 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     // Tìm n ảnh mới nhất của một cây
     @Query("SELECT i FROM Image i WHERE i.plant.id = :plantId ORDER BY i.id DESC")
     List<Image> findLatestImagesByPlantId(@Param("plantId") UUID plantId, Pageable pageable);
+
+    @Query("SELECT i FROM Image i " +
+            "WHERE i.plant.id = :plantId " +
+            "AND i.uploader.id = :uploaderId " +
+            "AND i.id != :currentImageId " +
+            "ORDER BY i.createdAt DESC " +
+            "LIMIT 1")
+    Optional<Image> findMostRecentImageByPlantAndUploader(
+            @Param("plantId") UUID plantId,
+            @Param("uploaderId") UUID uploaderId,
+            @Param("currentImageId") UUID currentImageId
+    );
 }

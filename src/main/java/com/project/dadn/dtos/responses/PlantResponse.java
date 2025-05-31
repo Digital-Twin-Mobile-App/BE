@@ -18,8 +18,9 @@ public class PlantResponse {
     String name;
     TreeStatus status;
     WateringFrequency wateringFrequency;
+    String plantCoverUrl;
 
-    List<Image> images;             // Danh sách ảnh của cây
-    Set<Category> categories;       // Nhóm cây
+//    List<Image> images;             // Danh sách ảnh của cây
+//    Set<Category> categories;       // Nhóm cây
     boolean isFavorite;
 }
