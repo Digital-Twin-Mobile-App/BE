@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @Builder
-@Table(name = "users")
+@Table(name = "\"users\"")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,8 +38,8 @@ public class User extends BaseEntity {
     @Column(name = "dob")
     LocalDate dob;
 
-    @Column(name = "token_version")
-    Long tokenVersion;
+    @Column(name = "avatar_url")
+    String avatarUrl;
 
     @ManyToMany
     Set<Role> roles;
@@ -48,4 +48,8 @@ public class User extends BaseEntity {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     Collection<Image> images;
+//
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<FavoritePlant> favoritePlants;
+
 }

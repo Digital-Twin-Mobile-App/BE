@@ -15,6 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
+import static com.project.dadn.services.EmailService.OTP_TTL;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -22,13 +26,9 @@ import org.springframework.stereotype.Service;
 public class OtpService {
 
     StringRedisTemplate redisTemplate;
-    private final TokenUtil tokenUtil;
-    private final UserRepository userRepository;
 
     public AuthenticationResponse verifyOtp(String otp, String email) {
         String redisKey = "otp:" + email;
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCodes.UNAUTHENTICATED));
 
         String storedOtp = redisTemplate.opsForValue().get(redisKey);
 
@@ -36,11 +36,11 @@ public class OtpService {
             throw new AppException(ErrorCodes.OTP_INVALID);
         }
 
-        // Xóa OTP sau khi xác minh thành công
         redisTemplate.delete(redisKey);
 
+        redisTemplate.opsForValue().set("otp_verified:" + email, "true", 30, TimeUnit.MINUTES);
+
         return AuthenticationResponse.builder()
-                .token(tokenUtil.generateToken(user))
                 .authenticated(true)
                 .build();
     }

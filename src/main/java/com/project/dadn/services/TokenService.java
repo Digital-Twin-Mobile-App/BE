@@ -51,46 +51,13 @@ public class TokenService {
         }
 
         String tokenKey = signedJWT.getJWTClaimsSet().getJWTID();
-        String email = signedJWT.getJWTClaimsSet().getSubject();
-        int tokenVersion = signedJWT.getJWTClaimsSet().getIntegerClaim(tokenVersionString);
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCodes.UNAUTHENTICATED));
-
-        if (isRefresh && user.getTokenVersion() < tokenVersion) {
+        if (redisUtil.hasKey(tokenKey)) {
             throw new AppException(ErrorCodes.UNAUTHENTICATED);
         }
-
-        redisUtil.save(tokenKey, String.valueOf(user.getTokenVersion()));
-
         return signedJWT;
     }
 
-    @Async
-    @Transactional(readOnly = true)
-    public CompletableFuture<Boolean> checkTokenVersion(String token) throws ParseException {
-        String version = jwtUtil.getTokenVersion(token);
-        String email = jwtUtil.getEmailToken(token);
-
-        if (version == null || version.isEmpty()) {
-            return CompletableFuture.completedFuture(false);
-        }
-
-        return userRepository.findByEmail(email)
-                .map(user -> CompletableFuture.completedFuture(version.equals(String.valueOf(user.getTokenVersion()))))
-                .orElse(CompletableFuture.completedFuture(false));
-    }
-
-    public void validateTokenVersion(String token) throws ParseException {
-        String version = jwtUtil.getTokenVersion(token);
-        boolean isValidVersion = checkTokenVersion(token).join();
-
-        if (!isValidVersion) {
-            throw new AppException(ErrorCodes.UNAUTHENTICATED);
-        }
-
-        redisUtil.save(token, version);
-    }
 
     public void saveResetPassword(String email, ChangePasswordRequest request) throws ParseException {
         User user = userRepository.findByEmail(email)

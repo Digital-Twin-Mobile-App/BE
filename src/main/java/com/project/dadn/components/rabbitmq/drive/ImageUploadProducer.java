@@ -1,4 +1,4 @@
-package com.project.dadn.producers;
+package com.project.dadn.components.rabbitmq.drive;
 
 import com.project.dadn.configurations.RabbitMQConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -15,8 +15,8 @@ public class ImageUploadProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendImagePath(String filePath) {
-        rabbitTemplate.convertAndSend(RabbitMQConfig.IMAGE_UPLOAD_QUEUE, filePath);
+    public void uploadAvatarImage(String filePath) {
+        rabbitTemplate.convertAndSend(RabbitMQConfig.AVATAR_UPLOAD_QUEUE, filePath);
         System.out.println("Sent file path to RabbitMQ: " + filePath);
     }
 }

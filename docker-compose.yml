@@ -1,90 +1,54 @@
 services:
 
-  backend:
-    container_name: dadn_backend
-    env_file: .env
-    image: vietlecd/dadn:latest
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-    environment:
-      - DDL_UPDATE=${DDL_UPDATE}
-      - GOOGLE_CREDENTIALS_PATH=/app/cred.json
-      - GOOGLE_DRIVE_FOLDER_ID=${GOOGLE_DRIVE_FOLDER_ID}
-      - GOOGLE_ID=${GOOGLE_ID}
-      - GOOGLE_PASSWORD=${GOOGLE_PASSWORD}
-      - GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI}
-      - POSGRES_URL=jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=${POSTGRES_DOCKER_PORT}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - REDIS_HOST=redis
-      - REDIS_PORT=${REDIS_DOCKER_PORT}
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_PORT=${RABBITMQ_DOCKER_PORT}
-      - MAIL_HOST=${MAIL_HOST}
-      - MAIL_PORT=${MAIL_PORT}
-      - SIGNER_KEY=${SIGNER_KEY}
-    ports:
-      - "${BACKEND_PORT}:${BACKEND_DOCKER_PORT}"
-    volumes:
-      - ./cred.json:/app/cred.json
-    depends_on:
-      - postgres
-      - rabbitmq
-      - redis
-
-  postgres:
-    image: postgres
-    container_name: dadn_postgres
-    env_file: .env
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-    volumes:
-      - ./volumes/postgres_data:/var/lib/postgresql/data
-    ports:
-      - "${POSTGRES_PORT}:${POSTGRES_DOCKER_PORT}"
+#  backend:
+#    container_name: dadn_backend
+#    env_file: .env
+#    image: vietlecd/dadn:backend_2
+##    build:
+##      context: .
+##      dockerfile: Dockerfile
+#    ports:
+#      - "${BACKEND_PORT}:${BACKEND_DOCKER_PORT}"
+#    volumes:
+#      - ./cred.json:/app/cred.json
+#    depends_on:
+#      - rabbitmq
+#      - redis
 
   rabbitmq:
-    image: rabbitmq:3-management-alpine
     container_name: dadn_rabbitmq
-    restart: always
-    env_file: .env
+    image: heidiks/rabbitmq-delayed-message-exchange:latest
     environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
     ports:
-      - "${RABBITMQ_PORT}:${RABBITMQ_DOCKER_PORT}"
-      - "${RABBITMQ_UI_PORT}:${RABBITMQ_UI_DOCKER_PORT}"
+      # AMQP protocol port
+      - '5673:5672'
+      # HTTP management UI
+      - '15673:15672'
     volumes:
-      - ./volumes/rabbitmq_data:/var/lib/rabbitmq
-      - ./volumes/rabbitmq_log:/var/log/rabbitmq
+      - rabbitmq_data:/data
 
   redis:
     image: redis:latest
     container_name: dadn_redis_container
     restart: always
     ports:
-      - "${REDIS_PORT}:${REDIS_DOCKER_PORT}"
+      - "6380:6379"
     security_opt:
       - no-new-privileges:true
     command: redis-server --save 60 1 --loglevel warning --maxmemory 200mb --maxmemory-policy allkeys-lru
     volumes:
-      - ./volumes/redis_data:/data
+      - redis_data:/data
 
   redisinsight: # GUI
     image: redislabs/redisinsight:1.6.3
     ports:
-      - "${REDIS_GUI_PORT}:${REDIS_GUI_DOCKER_PORT}"
+      - "8001:8001"
     volumes:
-      - ./volumes/redisinsight:/db
+      - redisInsight_data:/data
 
 volumes:
-  postgres_data:
   rabbitmq_data:
-  rabbitmq_log:
   redis_data:
+  redisInsight_data:

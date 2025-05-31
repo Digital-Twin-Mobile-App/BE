@@ -9,6 +9,12 @@ google:
 
 
 spring:
+  transaction:
+    default-timeout: 30s
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
   config:
     import: optional:file:.env[.properties]
   profiles:
@@ -20,22 +26,29 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     hikari:
-      maximum-pool-size: 90
+      maximum-pool-size: 50
       minimum-idle: 5
       connection-timeout: 30000
-      idle-timeout: 600000
-      pool-name: HikariConnPool
-      max-lifetime: 1800000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      validation-timeout: 5000
+      keepalive-time: 60000
+      auto-commit: true # Thay đổi thành true
+      pool-name: HikariPool
+      max-prepared-statements-per-connection: 250
+      prepared-statement-cache-size: 250
+
+
 
   data:
     redis:
-      host: ${REDIS_HOST}
-      port: ${REDIS_PORT}
-      timeout: ${REDIS_TIMEOUT}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6380}
+      timeout: ${REDIS_TIMEOUT:60000}
 
   rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: ${RABBITMQ_PORT}
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5673}
 
   security:
     oauth2:
@@ -67,24 +80,40 @@ spring:
           starttls:
             enable: ${MAIL_SMTP_STARTTLS_ENABLE}
 
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: ${DDL_UPDATE}
-    properties:
+  spring:
+    jpa:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-        integration.blazebit.enabled: true
+        ddl-auto: update
+      properties:
+        hibernate:
+          jdbc:
+            batch_size: 30
+          generate_statistics: false
+          order_updates: true
+          order_inserts: true
+          connection_handling: DELAYED_ACQUISITION_AND_RELEASE_AFTER_STATEMENT
+          current_session_context_class: thread
+          connection:
+            provider_disables_autocommit: false
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+      open-in-view: false
+
+    rabbitmq:
+      listener:
+        simple:
+          retry:
+            enabled: true
+            initial-interval: 2000
+            max-attempts: 3
+            max-interval: 10000
+            multiplier: 2
+          prefetch: 1
 
 jwt:
   signerKey: ${SIGNER_KEY}
-  valid-duration: 3600
+  valid-duration: 360000
   refreshable-duration: 3600000
 
 
-
-link:
-  otp: "http://localhost:${BACKEND_PORT}/verify?otp="
 
 
