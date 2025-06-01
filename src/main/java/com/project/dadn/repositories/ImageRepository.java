@@ -17,7 +17,7 @@ public interface ImageRepository extends JpaRepository<Image, UUID> {
     List<Image> findByPlantOrderByIdDesc(Plant plant);
 
     // Tìm ảnh theo plant ID với phân trang
-    Page<Image> findByPlant_IdOrderByIdDesc(UUID plantId, Pageable pageable);
+    Page<Image> findByPlant_IdOrderByUpdatedAtDesc(UUID plantId, Pageable pageable);
 
     // Tìm ảnh theo uploader
     Page<Image> findByUploader_IdOrderByIdDesc(UUID uploaderId, Pageable pageable);
@@ -25,9 +25,8 @@ public interface ImageRepository extends JpaRepository<Image, UUID> {
     // Đếm số lượng ảnh của một cây
     Long countByPlant_Id(UUID plantId);
 
-    // Tìm n ảnh mới nhất của một cây
-    @Query("SELECT i FROM Image i WHERE i.plant.id = :plantId ORDER BY i.id DESC")
-    List<Image> findLatestImagesByPlantId(@Param("plantId") UUID plantId, Pageable pageable);
+    @Query("SELECT i FROM Image i WHERE i.plant.id = :plantId ORDER BY i.updatedAt DESC LIMIT 1")
+    Image findLatestImagesByPlantId(@Param("plantId") UUID plantId);
 
     @Query("SELECT i FROM Image i " +
             "WHERE i.plant.id = :plantId " +

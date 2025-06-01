@@ -1,6 +1,5 @@
 package com.project.dadn.components.rabbitmq.ai;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.dadn.enums.PlantStage;
 import com.project.dadn.models.Image;
@@ -8,25 +7,19 @@ import com.project.dadn.models.Plant;
 import com.project.dadn.repositories.ImageRepository;
 import com.project.dadn.repositories.PlantRepository;
 import com.project.dadn.services.NotificationService;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,11 +28,10 @@ import java.util.UUID;
 @Slf4j
 public class AIPredictionConsumer {
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String AI_SERVICE_URL = "http://localhost:8000/predict_file/";
+    @Value("${ai.service.url}")
+    private String aiServiceUrl;
     private final ImageRepository imageRepository;
     private final PlantRepository plantRepository;
-    private final EntityManager entityManager;
-    private final PlatformTransactionManager transactionManager;
     private final NotificationService notificationService;
 
     @RabbitListener(queues = "ai.prediction.queue", concurrency = "1")
@@ -59,21 +51,11 @@ public class AIPredictionConsumer {
                 return;
             }
 
-            // Call AI service outside transaction
-            File tempFile = createTempCopy(imageFile);
-            try {
-                // Gọi AI service với file tạm
-                Map<String, Object> aiResponse = callAIService(tempFile);
-                if (aiResponse != null) {
-                    updateImageWithTransactionalSupport(imageId, aiResponse);
-                }
-            } finally {
-                // Dọn dẹp file tạm
-                if (tempFile != null && tempFile.exists()) {
-                    tempFile.delete();
-                }
+            // Call AI service with the original file
+            Map<String, Object> aiResponse = callAIService(imageFile);
+            if (aiResponse != null) {
+                updateImageWithPrediction(imageId, aiResponse);
             }
-
         } catch (Exception e) {
             log.error("Error processing AI prediction: {}", e.getMessage(), e);
         } finally {
@@ -93,7 +75,7 @@ public class AIPredictionConsumer {
                     new HttpEntity<>(body, headers);
 
             ResponseEntity<String> response = restTemplate.exchange(
-                    AI_SERVICE_URL,
+                    aiServiceUrl,
                     HttpMethod.POST,
                     requestEntity,
                     String.class
@@ -114,22 +96,6 @@ public class AIPredictionConsumer {
         return null;
     }
 
-    private File createTempCopy(File originalFile) throws IOException {
-        String tempDir = System.getProperty("java.io.tmpdir");
-        String fileName = "ai_prediction_" + System.currentTimeMillis() + "_" + originalFile.getName();
-        File tempFile = new File(tempDir, fileName);
-
-        try (FileInputStream in = new FileInputStream(originalFile);
-             FileOutputStream out = new FileOutputStream(tempFile)) {
-            byte[] buffer = new byte[8192];
-            int length;
-            while ((length = in.read(buffer)) > 0) {
-                out.write(buffer, 0, length);
-            }
-        }
-        return tempFile;
-    }
-
     private void cleanupFile(File imageFile, String imagePath) {
         try {
             if (imageFile != null && imageFile.exists()) {
@@ -145,38 +111,13 @@ public class AIPredictionConsumer {
         }
     }
 
-    private void updateImageWithTransactionalSupport(UUID imageId, Map<String, Object> aiResponse) {
-        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
-        transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-        transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
-
-        transactionTemplate.execute(status -> {
-            try {
-                Image image = imageRepository.findById(imageId)
-                        .orElseThrow(() -> new RuntimeException("Image not found: " + imageId));
-
-                updateImageDetails(image, aiResponse);
-
-                entityManager.flush();
-                return null;
-            } catch (Exception e) {
-                log.error("Transaction error: {}", e.getMessage(), e);
-                status.setRollbackOnly();
-                return null;
-            } finally {
-                entityManager.clear();
-            }
-        });
-    }
-
-    private void updateImageDetails(Image image, Map<String, Object> aiResponse) {
+    @Transactional
+    public void updateImageWithPrediction(UUID imageId, Map<String, Object> aiResponse) {
         try {
+            Image image = imageRepository.findById(imageId)
+                    .orElseThrow(() -> new RuntimeException("Image not found: " + imageId));
 
             Map<String, Object> prediction = (Map<String, Object>) aiResponse.get("prediction");
-
-            Image freshImage = imageRepository.findById(image.getId())
-                    .orElseThrow(() -> new RuntimeException("Image not found: " + image.getId()));
-
 
             PlantStage newStage = mapAIStageToPlantStage((String) prediction.get("stage"));
             Double confidence = ((Number) prediction.get("confidence")).doubleValue();
@@ -188,51 +129,36 @@ public class AIPredictionConsumer {
             image.setHeightRatio(heightRatio);
             image.setDetectedSpecies(species);
 
-            imageRepository.saveAndFlush(freshImage);
+            imageRepository.save(image);
 
             Plant plant = image.getPlant();
-            if (plant != null || shouldUpdatePlant(plant, newStage, confidence)) {
+            if (plant != null && shouldUpdatePlant(plant, newStage, confidence)) {
                 PlantStage oldPlantStage = plant.getCurrentStage();
 
                 plant.setCurrentStage(newStage);
                 plant.setLastStageConfidence(confidence);
-                plantRepository.saveAndFlush(plant);
+                plantRepository.save(plant);
 
-                // Tạo notification trong transaction riêng
+                // Create notification if stage changed
                 if (oldPlantStage != newStage && newStage != PlantStage.UNKNOWN) {
-                    TransactionTemplate notificationTx = new TransactionTemplate(transactionManager);
-                    notificationTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-
-                    notificationTx.execute(status -> {
-                        try {
-                            notificationService.createStageChangeNotification(
-                                    plant,
-                                    oldPlantStage,
-                                    newStage
-                            );
-                            return null;
-                        } catch (Exception e) {
-                            log.error("Error creating notification: {}", e.getMessage());
-                            status.setRollbackOnly();
-                            return null;
-                        }
-                    });
+                    notificationService.createStageChangeNotification(
+                            plant,
+                            oldPlantStage,
+                            newStage
+                    );
                 }
-
             }
-
-            // Force flush changes
 
             log.info("Successfully updated image and plant with AI prediction results. ImageId: {}, Stage: {}, Confidence: {}",
                     image.getId(), newStage, confidence);
         } catch (Exception e) {
-            log.error("Error in updateImageDetails: {}", e.getMessage(), e);
-            throw e; // Re-throw để transaction rollback
+            log.error("Error in updateImageWithPrediction: {}", e.getMessage(), e);
+            throw e; // Re-throw to trigger transaction rollback
         }
     }
 
     private boolean shouldUpdatePlant(Plant plant, PlantStage newStage, Double newConfidence) {
-        // Nếu chưa có stage, và stage mới có độ tin cậy > 0.5
+        // If plant has no stage yet, and new stage has confidence > 0.5
         if (plant.getCurrentStage() == null && newConfidence != null && newConfidence > 0.5) {
             log.info("Plant has no stage, updating to stage: {}, confidence: {}", newStage, newConfidence);
             return true;

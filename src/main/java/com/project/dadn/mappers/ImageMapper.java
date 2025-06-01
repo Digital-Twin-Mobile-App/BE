@@ -17,6 +17,7 @@ public interface ImageMapper {
     @Mapping(target = "uploadDate", source = "createdAt")
     @Mapping(target = "plantStage", source = "plantStage")
     @Mapping(target = "stageConfidence", source = "stageConfidence")
+    @Mapping(target = "detectedSpecies", source = "detectedSpecies")
     ImageHistoryResponse toImageHistoryResponse(Image image);
 
     default Page<ImageHistoryResponse> toImageHistoryResponsePage(Page<Image> imagePage) {

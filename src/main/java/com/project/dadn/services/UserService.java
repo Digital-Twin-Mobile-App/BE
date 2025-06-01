@@ -134,7 +134,9 @@ public class UserService {
         if (userRequest.getDob() != null)
             user.setDob(userRequest.getDob());
 
-        UserResponse response = userMapper.toUserResponse(userRepository.save(user)); //
+        User res = userRepository.save(user);
+
+        UserResponse response = userMapper.toUserResponse(res); //
 
         if (avatarFile != null && !avatarFile.isEmpty()) {
             try {
@@ -147,7 +149,7 @@ public class UserService {
                 avatarFile.transferTo(tempFile);
 
 //                String imageUrl = uploadFileService.uploadImageToDriveAndReturnUrl(tempFile);
-                uploadFileService.uploadAvatarAsync(user, tempFile);
+                uploadFileService.uploadAvatarAsync(res, tempFile);
 
 
             } catch (IOException e) {

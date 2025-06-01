@@ -1,19 +1,18 @@
 services:
-
-#  backend:
-#    container_name: dadn_backend
-#    env_file: .env
-#    image: vietlecd/dadn:backend_2
-##    build:
-##      context: .
-##      dockerfile: Dockerfile
-#    ports:
-#      - "${BACKEND_PORT}:${BACKEND_DOCKER_PORT}"
-#    volumes:
-#      - ./cred.json:/app/cred.json
-#    depends_on:
-#      - rabbitmq
-#      - redis
+  backend:
+    container_name: dadn_backend
+    env_file: .env
+    image: vietlecd/dadn:backend_3
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_DOCKER_PORT}"
+    volumes:
+      - ./cred.json:/app/cred.json
+      - upload_temp:/app/uploads/temp
+    depends_on:
+      - rabbitmq
+      - redis
+    networks:
+      - appnet
 
   rabbitmq:
     container_name: dadn_rabbitmq
@@ -22,12 +21,12 @@ services:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     ports:
-      # AMQP protocol port
       - '5673:5672'
-      # HTTP management UI
       - '15673:15672'
     volumes:
       - rabbitmq_data:/data
+    networks:
+      - appnet
 
   redis:
     image: redis:latest
@@ -40,15 +39,24 @@ services:
     command: redis-server --save 60 1 --loglevel warning --maxmemory 200mb --maxmemory-policy allkeys-lru
     volumes:
       - redis_data:/data
+    networks:
+      - appnet
 
-  redisinsight: # GUI
+  redisinsight:
     image: redislabs/redisinsight:1.6.3
     ports:
       - "8001:8001"
     volumes:
       - redisInsight_data:/data
+    networks:
+      - appnet
 
 volumes:
   rabbitmq_data:
   redis_data:
   redisInsight_data:
+  upload_temp:
+  ai_vol:
+
+networks:
+  appnet:
