@@ -197,7 +197,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contributors
 
-- Le Hoang Viet
+- Le Hoang Viet - 2252903
 
 ## Acknowledgments
 
