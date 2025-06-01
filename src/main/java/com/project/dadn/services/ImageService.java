@@ -54,47 +54,11 @@ public class ImageService {
     private final UploadFileService uploadFileService;
     private final JwtUtil jwtUtil;
     private final ImageMapper imageMapper;
-    private final RabbitTemplate rabbitTemplate;
     private final PlantMapper plantMapper;
     private final AIPredictionProducer aiPredictionProducer;
 
     private final PlatformTransactionManager transactionManager;
 
-    private void handleAsyncImageProcessing(File tempFile, Image savedImg) {
-        CompletableFuture.runAsync(() -> {
-            TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
-            transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
-            transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-
-            try {
-                // 1. Gửi file cho AI prediction trước
-                aiPredictionProducer.processAIPrediction(
-                        tempFile.getAbsolutePath(),
-                        savedImg.getId()
-                );
-
-                // 2. Sau đó mới upload lên drive
-                String mediaUrl = uploadFileService.uploadImageToDriveAndReturnUrlNor(tempFile);
-
-                // 3. Cuối cùng mới cập nhật URL trong database
-                transactionTemplate.execute(status -> {
-                    try {
-                        Image imageToUpdate = imageRepository.findById(savedImg.getId())
-                                .orElseThrow();
-                        imageToUpdate.setMediaUrl(mediaUrl);
-                        imageRepository.save(imageToUpdate);
-                        return null;
-                    } catch (Exception e) {
-                        log.error("Error updating image URL: {}", e.getMessage());
-                        status.setRollbackOnly();
-                        return null;
-                    }
-                });
-            } catch (Exception e) {
-                log.error("Error in async processing: {}", e.getMessage(), e);
-            }
-        });
-    }
     @Transactional
     public ImageHistoryResponse addImageToPlant(UUID plantId, MultipartFile imageFile, HttpServletRequest request) throws ParseException {
         String email = jwtUtil.getEmailToken(jwtUtil.getUserToken(request));
@@ -107,26 +71,30 @@ public class ImageService {
 
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
-                String baseDir = System.getProperty("user.dir") + "/uploads/temp/";
-                File dir = new File(baseDir);
+                String coverFileName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
+                String baseDir = System.getProperty("user.dir") + "/uploads/";
+                java.io.File dir = new java.io.File(baseDir);
                 if (!dir.exists()) dir.mkdirs();
 
-                String fileName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
-                File tempFile = new File(baseDir + fileName);
-                imageFile.transferTo(tempFile);
+                java.io.File coverTempFile = new java.io.File(baseDir + coverFileName);
+                imageFile.transferTo(coverTempFile);
+
+                String mediaUrl = uploadFileService.uploadImageToDriveAndReturnUrlNor(coverTempFile);
 
                 // Lưu image với transaction hiện tại
                 Image image = new Image();
                 image.setMediaTitle(imageFile.getOriginalFilename());
-                image.setMediaUrl("pending");
+                image.setMediaUrl(mediaUrl);
                 image.setUploader(user);
                 image.setPlant(plant);
 
-                // Lưu và flush ngay để đảm bảo mọi thứ được persist
-                Image savedImg = imageRepository.saveAndFlush(image);
+                Image savedImg = imageRepository.save(image);
 
-                // Xử lý upload async
-                handleAsyncImageProcessing(tempFile, savedImg);
+                // 1. Gửi file cho AI prediction trước
+                aiPredictionProducer.processAIPrediction(
+                        coverTempFile.getAbsolutePath(),
+                        savedImg.getId()
+                );
 
                 return imageMapper.toImageHistoryResponse(savedImg);
 
@@ -141,13 +109,13 @@ public class ImageService {
 
     public Page<ImageHistoryResponse> getPlantImageHistory(UUID plantId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Image> imagePage = imageRepository.findByPlant_IdOrderByIdDesc(plantId, pageable);
+        Page<Image> imagePage = imageRepository.findByPlant_IdOrderByUpdatedAtDesc(plantId, pageable);
         return imageMapper.toImageHistoryResponsePage(imagePage);
     }
 
-    public List<ImageHistoryResponse> getLatestImages(UUID plantId, int limit) {
-        List<Image> imagePage = imageRepository.findLatestImagesByPlantId(plantId, PageRequest.of(0, limit));
-        return imageMapper.toImageHistoryResponseList(imagePage);
+    public ImageHistoryResponse getLatestImages(UUID plantId, int limit) {
+        Image imagePage = imageRepository.findLatestImagesByPlantId(plantId);
+        return imageMapper.toImageHistoryResponse(imagePage);
     }
 
     public Long getPlantImageCount(UUID plantId) {

@@ -40,7 +40,8 @@ public class SecurityConfig {
             "/auth/logout",
             "/auth/*",
             "/roles",
-            "/permissions"
+            "/permissions",
+            "/swagger-ui/*"
     };
 
     @Autowired
@@ -49,9 +50,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(request ->
-                request.requestMatchers(HttpMethod.POST, publicEndpoints).permitAll()
-                        .anyRequest().authenticated());
+        httpSecurity.authorizeHttpRequests(request -> request
+                .requestMatchers(HttpMethod.GET, publicEndpoints).permitAll()
+                .requestMatchers(HttpMethod.POST, publicEndpoints).permitAll()
+                .anyRequest().authenticated());
 
         httpSecurity.oauth2ResourceServer(oauth2 ->
                 oauth2.jwt(jwtConfigurer ->

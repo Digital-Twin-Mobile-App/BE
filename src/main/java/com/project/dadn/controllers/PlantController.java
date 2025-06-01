@@ -39,10 +39,10 @@ public class PlantController {
     @PostMapping("/create")
     public APIResponse<PlantResponse> addPlantWithCover(
             @RequestParam("image") MultipartFile coverImageFile,
-            @RequestParam(required = false) String plantName,
+            @RequestParam(required = false) String name,
             HttpServletRequest request) throws ParseException {
 
-        PlantResponse plantResponse = plantService.addPlantWithCover(coverImageFile, request, plantName);
+        PlantResponse plantResponse = plantService.addPlantWithCover(coverImageFile, request, name);
 
         return APIResponse.<PlantResponse>builder()
                 .result(plantResponse)

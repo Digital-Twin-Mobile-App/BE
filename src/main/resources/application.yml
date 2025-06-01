@@ -83,7 +83,7 @@ spring:
   spring:
     jpa:
       hibernate:
-        ddl-auto: update
+        ddl-auto: ${DDL_UPDATE}
       properties:
         hibernate:
           jdbc:
@@ -113,6 +113,10 @@ jwt:
   signerKey: ${SIGNER_KEY}
   valid-duration: 360000
   refreshable-duration: 3600000
+
+ai:
+  service:
+    url: ${AI_SERVICE_URL:http://localhost:8000/predict_file/}
 
 
 

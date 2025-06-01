@@ -18,5 +18,6 @@ public class ImageHistoryResponse
     private LocalDateTime uploadDate;
     private PlantStage plantStage;
     private Double stageConfidence;
+    private String detectedSpecies;
 
 }
